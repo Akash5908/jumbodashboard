@@ -2,11 +2,11 @@ import {InputBase, styled} from "@mui/material";
 
 export const Search = styled('div')(({ theme }) => ({
     position: 'relative',
-    width: '100%',
+    width: '90%',
 }));
 
 export const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(1, 1),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -19,8 +19,9 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
 export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     display: 'flex',
+    backgroundColor: 'whitesmoke',
     borderRadius: 24,
-    boxShadow: theme.shadows[25],
+    boxShadow: theme.shadows[20],
 
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),

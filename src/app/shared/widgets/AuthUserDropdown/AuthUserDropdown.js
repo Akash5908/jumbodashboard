@@ -31,8 +31,8 @@ const AuthUserDropdown = () => {
                 triggerButton={
                     <Avatar
                         src={authUser.profile_pic}
-                        sizes={"small"}
-                        sx={{boxShadow: 25, cursor: 'pointer'}}
+                        sizes={"lg"}
+                        sx={{boxShadow: 25, cursor: 'pointer', width:"4vw", height:"4vw", backgroundColor: theme.palette.primary.main}}
                     />
                 }
             >
