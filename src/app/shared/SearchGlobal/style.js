@@ -7,7 +7,7 @@ export const Search = styled('div')(({ theme }) => ({
 
 export const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(1, 1),
-    height: '100%',
+    height: '85%',
     position: 'absolute',
     pointerEvents: 'none',
     display: 'flex',
@@ -19,7 +19,7 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
 export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     display: 'flex',
-    backgroundColor: 'whitesmoke',
+    // backgroundColor: 'whitesmoke',
     borderRadius: 24,
     boxShadow: theme.shadows[20],
 
