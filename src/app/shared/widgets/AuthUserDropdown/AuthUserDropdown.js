@@ -32,7 +32,7 @@ const AuthUserDropdown = () => {
                     <Avatar
                         src={authUser.profile_pic}
                         sizes={"lg"}
-                        sx={{boxShadow: 25, cursor: 'pointer', width:"4vw", height:"4vw", backgroundColor: theme.palette.primary.main}}
+                        sx={{boxShadow: 25, cursor: 'pointer', width:"3vw", height:"3vw", backgroundColor: theme.palette.primary.main}}
                     />
                 }
             >
