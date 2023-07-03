@@ -33,6 +33,10 @@ const routesForPublic = [
         path: "/auth-pages/login-2",
         element: <Page component={Login2} />
     },
+    {
+        path: "/user/login2",
+        element: <Page component={Login2} />
+    },
 ];
 
 /**

@@ -26,12 +26,12 @@ const Sidebar = () => {
         autoHideDuration={200}
         autoHideTimeout={500}
       >
-         <div style={{ position:"fixed", top:'12vh', left:'1vw'}}>
+         <div style={{ position:"fixed", top:'12vh', left:'1vw', zIndex:"999"}}>
          <SearchGlobal
             sx={{
               pb: 2, // Add bottom padding
               maxWidth: { xs: 240, md: 320 },
-             zIndex: 2,
+             zIndex: '999',
               transition: 'box-shadow 0.3s ease-in-out',
             }}
           

@@ -3,6 +3,8 @@ import {InputBase, styled} from "@mui/material";
 export const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     width: '90%',
+    zIndex: "999",
+    backgroundColor: 'white',
 }));
 
 export const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -13,7 +15,7 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 2,
+   zIndex:"999"
 }));
 
 export const StyledInputBase = styled(InputBase)(({ theme }) => ({

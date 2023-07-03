@@ -21,8 +21,8 @@ const AuthUserDropdown = () => {
     const {setAuthToken} = useJumboAuth();
 
     const onLogout = () => {
-        setAuthToken(null);
-        navigate("/user/login");
+        // setAuthToken(null);
+        navigate("/user/login2");
     };
 
     return (

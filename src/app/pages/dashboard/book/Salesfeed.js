@@ -150,7 +150,7 @@ const Salesfeed = () => {
             <TextField
               id="outlined-multiline-flexible"
               label="Booking ref.."
-              placeholder="Booking ref., Name, Email"
+              placeholder="Booking ref."
               multiline
               maxRows={4}
               fullWidth
@@ -176,7 +176,7 @@ const Salesfeed = () => {
             <TextField
               id="outlined-multiline-flexible"
               label="Ext. booking ref"
-              placeholder="Ext. booking ref"
+              placeholder="Ext.booking ref"
               multiline
               maxRows={4}
               fullWidth
