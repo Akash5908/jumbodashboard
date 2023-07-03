@@ -2,30 +2,33 @@ import * as React from "react"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import SendIcon from "@mui/icons-material/Send"
+import Stack from "@mui/material/Stack"
 
 import Title from "../edit/title"
+import Duration from "../edit/duration"
+import Location from "../edit/location"
+import Photos from "../edit/photos"
+import Description from "../edit/description"
 
-export default function TabButton() {
+const tabLabels = ["Title", "Duration", "Location", "Description", "Photos"]
+const tabComponents = [Title, Duration, Location, Description, Photos]
+
+const TabButton = () => {
   const [value, setValue] = React.useState(0)
-  const [selectedTab, setSelectedTab] = React.useState(0)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
 
-  const handleTabChange = (e, a) => {
-    setSelectedTab(a)
+  const handleTabChange = (index) => {
+    setValue(index)
   }
 
   const renderComponent = () => {
-    switch (selectedTab) {
-      case 1:
-        return <Title />
-      case 2:
-        return <h1>sdsdjkh</h1>
-      default:
-        return null
-    }
+    const Component = tabComponents[value]
+    return <Component />
   }
 
   return (
@@ -38,16 +41,40 @@ export default function TabButton() {
           scrollButtons={false}
           aria-label='scrollable prevent tabs example'
         >
-          <Tab label='Title' onClick={(e) => handleTabChange(e, 1)} />
-          <Tab label='Duration' onClick={(e) => handleTabChange(e, 2)} />
-          <Tab label='Location' />
-          <Tab label='Description' />
-          <Tab label='Photos' />
-          <Tab label='Inclusions' />
-          <Tab label='Exclusion' />
+          {tabLabels.map((label, index) => (
+            <Tab
+              key={index}
+              label={label}
+              onClick={() => handleTabChange(index)}
+            />
+          ))}
         </Tabs>
       </Box>
       {renderComponent()}
+      <div style={{ marginTop: "5%" }}>
+        <div style={{ margin: "1%" }}>
+          <Stack direction='row' spacing={120}>
+            <Button
+              variant='outlined'
+              onClick={() => (value > 0 ? setValue(value - 1) : setValue(4))}
+            >
+              Back
+            </Button>
+            <Button
+              variant='contained'
+              endIcon={<SendIcon />}
+              onClick={() => {
+                value < 4 ? setValue(value + 1) : setValue(0)
+                console.log(value)
+              }}
+            >
+              Continue
+            </Button>
+          </Stack>
+        </div>
+      </div>
     </>
   )
 }
+
+export default TabButton
