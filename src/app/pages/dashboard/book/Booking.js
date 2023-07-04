@@ -25,7 +25,13 @@ const Booking = () => {
   }
 
   return (
-    <div style={{ padding: "0" }}>
+    <div style={{ padding: '0' }}>  
+         <div  style={{marginBottom: '20px'}}>
+        <a href="#">Home</a> {'>'} <span>Bookings</span>
+      </div>
+      <Typography variant="h1" align="start" gutterBottom>
+        Create Booking
+      </Typography>
       <Box
         component='form'
         sx={{

@@ -14,27 +14,28 @@ const JumboCustomizerButton = () => {
         ReactDOM.createPortal(
             <Fab
                 size={"medium"}
-                color="primary"
+                // color="primary"
                 aria-label="add"
                 onClick={toggleCustomizerVisibility}
-                sx={{
-                    position: "fixed",
-                    top: 150,
-                    right: 0,
-                    zIndex: 101,
-                    width: 50,
-                    height: 44,
-                    p: theme => theme.spacing(1, 1, 1, 1.5),
-                    borderRadius: '24px 0 0 24px',
-                    backgroundImage: theme => `linear-gradient(-135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                // sx={{
+                //     position: "fixed",
+                //     top: 150,
+                //     right: 0,
+                //     zIndex: 101,
+                //     width: 50,
+                //     height: 44,
+                //     p: theme => theme.spacing(1, 1, 1, 1.5),
+                //     borderRadius: '24px 0 0 24px',
+                //     backgroundImage: theme => `linear-gradient(-135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
 
-                    '&:hover': {
-                        backgroundImage: theme => `linear-gradient(-135deg, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
-                    }
+                //     '&:hover': {
+                //         backgroundImage: theme => `linear-gradient(-135deg, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
+                //     }
 
 
-                }}>
-                <SettingsIcon
+                // }}>
+            >
+                {/* <SettingsIcon
                     sx={{
                         animation: 'move 2s infinite linear',
 
@@ -43,7 +44,7 @@ const JumboCustomizerButton = () => {
                             to: {transform: 'rotate(360deg)'}
                         }
                     }}
-                />
+                /> */}
             </Fab>,
             document.getElementsByTagName('body')[0]
         )
