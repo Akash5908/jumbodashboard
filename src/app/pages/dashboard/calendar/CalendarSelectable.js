@@ -15,48 +15,33 @@ const currentYear = today.getFullYear();
 
 const localizer = momentLocalizer(moment);
 
-const Event = ({event}) => {
-    return (
-        <span>
-            <strong>{event.title}</strong>
-            {event.desc && ':  ' + event.desc}
-        </span>
-    );
-};
-
-const EventAgenda = ({event}) => {
-    return (
-        <span>
-          <em style={{color: 'magenta'}}>{event.title}</em>
-          <p>{event.desc}</p>
-        </span>
-    );
-};
-
-const CalendarRendering = () => {
+const CalendarSelectable = () => {
     const {t} = useTranslation();
     return (
-     
         <React.Fragment>
-               <div style={{marginBottom: '20px'}}>
+                   <div style={{marginBottom: '20px'}}>
         <a href="#">Home</a> {'>'} <span>Bookings</span> {'>'} <span>Booking Calendar</span>
       </div>
-            <Typography variant={"h1"} mb={3}>{t('pages.title.calendarRendering')}</Typography>
+            <Typography variant={"h1"} mb={3}>Booking Calendar</Typography>
             <Card>
                 <CardContent>
                     <CalendarWrapper>
                         <Calendar
                             localizer={localizer}
                             events={events}
+                            selectable
+                            defaultView="week"
+                            scrollToTime={new Date(1970, 1, 1, 6)}
                             defaultDate={new Date(currentYear, 3, 1)}
+                            onSelectEvent={event => alert(event.title)}
+                            onSelectSlot={slotInfo =>
+                                alert(
+                                    `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
+                                    `\nend: ${slotInfo.end.toLocaleString()}` +
+                                    `\naction: ${slotInfo.action}`,
+                                )
+                            }
                             style={{height: 600}}
-                            components={{
-                                event: Event,
-                                agenda: {
-                                    event: EventAgenda,
-                                },
-                            }}
-                            defaultView={"agenda"}
                         />
                     </CalendarWrapper>
                 </CardContent>
@@ -65,4 +50,4 @@ const CalendarRendering = () => {
     );
 };
 
-export default CalendarRendering;
+export default CalendarSelectable;
