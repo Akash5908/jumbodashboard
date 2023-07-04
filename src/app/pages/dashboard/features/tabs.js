@@ -10,10 +10,18 @@ import Title from "../edit/title"
 import Duration from "../edit/duration"
 import Location from "../edit/location"
 import Photos from "../edit/photos"
+import Price from "../edit/price"
 import Description from "../edit/description"
 
-const tabLabels = ["Title", "Duration", "Location", "Description", "Photos"]
-const tabComponents = [Title, Duration, Location, Description, Photos]
+const tabLabels = [
+  "Title",
+  "Duration",
+  "Location",
+  "Description",
+  "Price",
+  "Photos",
+]
+const tabComponents = [Title, Duration, Location, Description, Price, Photos]
 
 const TabButton = () => {
   const [value, setValue] = React.useState(0)
@@ -38,7 +46,7 @@ const TabButton = () => {
           value={value}
           onChange={handleChange}
           variant='scrollable'
-          scrollButtons={false}
+          scrollButtons={true}
           aria-label='scrollable prevent tabs example'
         >
           {tabLabels.map((label, index) => (
@@ -56,7 +64,11 @@ const TabButton = () => {
           <Stack direction='row' spacing={120}>
             <Button
               variant='outlined'
-              onClick={() => (value > 0 ? setValue(value - 1) : setValue(4))}
+              onClick={() =>
+                value > 0
+                  ? setValue(value - 1)
+                  : setValue(tabComponents.length - 1)
+              }
             >
               Back
             </Button>
@@ -64,7 +76,9 @@ const TabButton = () => {
               variant='contained'
               endIcon={<SendIcon />}
               onClick={() => {
-                value < 4 ? setValue(value + 1) : setValue(0)
+                value < tabComponents.length - 1
+                  ? setValue(value + 1)
+                  : setValue(0)
                 console.log(value)
               }}
             >
