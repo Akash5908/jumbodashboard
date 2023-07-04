@@ -6,6 +6,8 @@ import Login1 from "app/pages/auth-pages/login1/Login1";
 import Login2 from "app/pages/auth-pages/login2/Login2";
 import Setting from "app/pages/dashboard/features/setting";
 import Salesfeed from "app/pages/dashboard/book/Salesfeed";
+import CalendarRendering from "app/pages/dashboard/calendar/CalendarRendering";
+
 
 
 /**
@@ -24,6 +26,10 @@ const routesForPublic = [
     {
         path: "/salesfeed",
         element: <Page component={Salesfeed} />
+    },
+    {
+        path: "/calendar",
+        element: <Page component={CalendarRendering} />
     },
     {
         path: "/auth-pages/login-1",
