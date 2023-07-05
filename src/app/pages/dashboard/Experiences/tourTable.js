@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
-
+import Tourlist from "app/pages/Data/data"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import AddIcon from "@mui/icons-material/Add"
@@ -30,55 +30,22 @@ const generateRandomDate = () => {
   )
 }
 
-const ID = () => Math.floor(Math.random() * 10)
+const initialRows = []
+const ID = 0
+{
+  Tourlist.forEach((tour) =>
+    initialRows.push({
+      id: tour.id,
+      image: tour.imagejpeg,
+      name: tour.name,
+      tourId: ID++,
+      status: true,
+      price: tour.price,
+      role: tour.alt,
+    })
+  )
+}
 
-const initialRows = [
-  {
-    id: ID(),
-    image: "",
-    name: "Tour1",
-    tourId: 25,
-    status: true,
-    joinDate: generateRandomDate(),
-    role: randomRole(),
-  },
-  {
-    id: ID(),
-    image: "",
-    name: "Tour2",
-    tourId: 25,
-    status: true,
-    joinDate: generateRandomDate(),
-    role: randomRole(),
-  },
-  {
-    id: ID(),
-    image: "",
-    name: "Tour3",
-    tourId: 25,
-    status: true,
-    joinDate: generateRandomDate(),
-    role: randomRole(),
-  },
-  {
-    id: ID(),
-    image: "",
-    name: "Tour4",
-    tourId: 25,
-    status: true,
-    joinDate: generateRandomDate(),
-    role: randomRole(),
-  },
-  {
-    id: ID(),
-    image: "",
-    name: "Tour5",
-    tourId: 25,
-    status: true,
-    joinDate: generateRandomDate(),
-    role: randomRole(),
-  },
-]
 const randomId = () => Math.floor(Math.random() * 10)
 
 function EditToolbar(props) {
@@ -156,7 +123,19 @@ export default function TourTable() {
       headerAlign: "left",
       editable: true,
     },
-    { field: "image", headerName: "Tour-Image", width: 100 },
+    {
+      field: "image",
+      headerName: "Tour-Image",
+      renderCell: (params) => (
+        <img
+          src={params.value}
+          alt=''
+          srcset=''
+          style={{ width: "90%", height: "auto", borderRadius: "10px" }}
+        />
+      ),
+      width: 100,
+    },
     {
       field: "status",
       headerName: "Status",
@@ -176,6 +155,14 @@ export default function TourTable() {
     {
       field: "name",
       headerName: "Title",
+      width: 250,
+      editable: true,
+      align: "left",
+      headerAlign: "left",
+    },
+    {
+      field: "price",
+      headerName: "Price",
       width: 250,
       editable: true,
       align: "left",
