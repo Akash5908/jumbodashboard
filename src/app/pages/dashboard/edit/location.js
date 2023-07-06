@@ -1,7 +1,24 @@
 import React from "react"
 import Styles from "./style"
 
+import axios from "axios"
+import { useParams } from "react-router"
+
 const Location = () => {
+  const [data, setData] = React.useState([])
+
+  const { id } = useParams()
+  React.useEffect(() => {
+    axios
+      .get("http://localhost:3000/tourList/" + id)
+      .then((res) => {
+        setData(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
   return (
     <>
       <div style={Styles.ehNvyi}>
@@ -43,6 +60,7 @@ const Location = () => {
                 <input
                   type='text'
                   id='locationInput'
+                  value={data.location}
                   name=''
                   style={Styles.inputTitle}
                   placeholder='Enter Location..'

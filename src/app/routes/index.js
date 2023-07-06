@@ -38,9 +38,10 @@ const routesForPublic = [
     element: <Page component={OverView} />,
   },
   {
-    path: "overview/touredit",
+    path: "overview/touredit/:id",
     element: <Page component={TourEdit} />,
   },
+
   {
     path: "/setting",
     element: <Page component={Setting} />,

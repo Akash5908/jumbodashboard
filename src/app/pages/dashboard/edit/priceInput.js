@@ -1,7 +1,29 @@
 import React from "react"
 import Styles from "./style"
 
+import axios from "axios"
+import { useParams } from "react-router"
+
 const PriceInput = () => {
+  const [data, setData] = React.useState([])
+
+  const { id } = useParams()
+
+  React.useEffect(() => {
+    axios
+      .get("http://localhost:3000/tourList/" + id)
+      .then((res) => {
+        setData(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
+  const { price } = data
+
+  const Price = parseInt(price)
+
   return (
     <>
       <div
@@ -19,6 +41,7 @@ const PriceInput = () => {
                 type='number'
                 style={Styles.PriceInput}
                 placeholder='Enter Price...'
+                value={Price}
               />
               <div style={Styles.currency}>INR</div>
             </div>

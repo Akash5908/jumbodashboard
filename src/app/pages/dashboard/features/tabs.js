@@ -12,6 +12,10 @@ import Location from "../edit/location"
 import Photos from "../edit/photos"
 import Price from "../edit/price"
 import Description from "../edit/description"
+import { useParams } from "react-router"
+import { useEffect } from "react"
+import axios from "axios"
+import { Data } from "@react-google-maps/api"
 
 const tabLabels = [
   "Title",
@@ -25,6 +29,14 @@ const tabComponents = [Title, Duration, Location, Description, Price, Photos]
 
 const TabButton = () => {
   const [value, setValue] = React.useState(0)
+  const { id } = useParams()
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3000/tourList/" + id)
+  //     .then((res) => (res.data))
+  //     .catch((err) => console.log(err))
+  // }, [])
 
   const handleChange = (event, newValue) => {
     setValue(newValue)

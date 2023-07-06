@@ -1,11 +1,53 @@
 import React from "react"
 import Styles from "./style"
 
+import axios from "axios"
+import { useParams } from "react-router"
+
 const Duration = () => {
+  const [data, setData] = React.useState([])
+  const [values, setValues] = React.useState({
+    duration: "",
+  })
+
+  const { id } = useParams()
+  React.useEffect(() => {
+    axios
+      .get("http://localhost:3000/tourList/" + id)
+      .then((res) => {
+        setValues({ ...res.data, duration: res.data.duration })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
+  console.log(values)
+  const { duration } = values
+
+  const [days, hours, minutes] = duration ? duration.split(" ") : ["", "", ""]
+
+  const dayInt = parseInt(days)
+  const hourInt = parseInt(hours)
+  const minInt = parseInt(minutes)
+
+  const handleChange = (e) => {
+    e.preventDefault()
+    axios
+      .put("http://localhost:3000/tourList/" + id, values)
+      .then((res) => {
+        console.log("Duration Updated")
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  console.log(data)
   return (
     <>
       <div style={Styles.ehNvyi}>
-        <form action=''>
+        <form onSubmit={handleChange}>
           <div>
             <div style={Styles.iAWZCU}>
               <h1 style={Styles.titleHeader}>
@@ -39,46 +81,52 @@ const Duration = () => {
               }}
             >
               <div styles={Styles.inputContainer}>
-                <label style={Styles.inputContainerLabel} for='days'>
+                <label style={Styles.inputContainerLabel} htmlFor='days'>
                   Days:
                 </label>
                 <input
                   style={Styles.inputContainerInput}
                   type='number'
                   id='days'
+                  value={dayInt}
                   min='0'
                   max='365'
-                  required
+                  onChange={(e) =>
+                    setValues({ ...values, duration: e.target.value })
+                  }
                 />
               </div>
               <div styles={Styles.inputContainer}>
-                <label style={Styles.inputContainerLabel} for='hours'>
+                <label style={Styles.inputContainerLabel} htmlFor='hours'>
                   Hours:
                 </label>
                 <input
                   style={Styles.inputContainerInput}
                   type='number'
                   id='hours'
+                  value={hourInt}
                   min='0'
                   max='23'
-                  required
                 />
               </div>
               <div styles={Styles.inputContainer}>
-                <label style={Styles.inputContainerLabel} for='minutes'>
+                <label style={Styles.inputContainerLabel} htmlFor='minutes'>
                   Minutes:
                 </label>
                 <input
                   style={Styles.inputContainerInput}
                   type='number'
                   id='minutes'
+                  value={minInt}
                   min='0'
                   max='59'
-                  required
                 />
               </div>
             </div>
           </div>
+          <button type='submit' style={Styles.buttonTitle}>
+            Update
+          </button>
         </form>
       </div>
     </>

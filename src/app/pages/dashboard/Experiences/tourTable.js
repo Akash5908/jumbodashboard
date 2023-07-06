@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import Tourlist from "app/pages/Data/data"
 import Box from "@mui/material/Box"
@@ -17,6 +17,8 @@ import {
   GridRowEditStopReasons,
 } from "@mui/x-data-grid"
 
+import axios from "axios"
+
 const roles = ["Market", "Finance", "Development"]
 const randomRole = () => {
   return roles[Math.floor(Math.random() * roles.length)]
@@ -30,21 +32,14 @@ const generateRandomDate = () => {
   )
 }
 
-const initialRows = []
-const ID = 0
-{
-  Tourlist.forEach((tour) =>
-    initialRows.push({
-      id: tour.id,
-      image: tour.imagejpeg,
-      name: tour.name,
-      tourId: ID++,
-      status: true,
-      price: tour.price,
-      role: tour.alt,
-    })
-  )
-}
+// const initialRows = data.map((tour, index) => ({
+//   id: index + 1,
+//   image: tour.imagejpeg,
+//   name: tour.name,
+//   status: true,
+//   price: tour.price,
+//   role: tour.alt,
+// }))
 
 const randomId = () => Math.floor(Math.random() * 10)
 
@@ -70,8 +65,29 @@ function EditToolbar(props) {
 }
 
 export default function TourTable() {
-  const [rows, setRows] = React.useState(initialRows)
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/tourList")
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err))
+  }, [])
+
+  const initialRows = data.map((tour, index) => ({
+    id: tour.id,
+    image: tour.imagejpeg,
+    name: tour.name,
+    status: true,
+    price: tour.price,
+    role: tour.alt,
+  }))
+  const [rows, setRows] = React.useState([])
   const [rowModesModel, setRowModesModel] = React.useState({})
+
+  useEffect(() => {
+    setRows(initialRows)
+  }, [data])
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -199,7 +215,7 @@ export default function TourTable() {
         }
 
         return [
-          <Link to='touredit'>
+          <Link to={`/overview/touredit/${id}`}>
             <GridActionsCellItem
               icon={<EditIcon />}
               label='Edit'

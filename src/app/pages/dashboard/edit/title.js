@@ -1,11 +1,47 @@
 import React from "react"
 import Styles from "./style"
+import axios from "axios"
+import { useDispatch, useSelector } from "react-redux"
+import { editTourAction } from "app/reducToolkit/editTour"
+import { useParams } from "react-router-dom"
+import { useEffect } from "react"
+import { useState } from "react"
 
-const Title = () => {
+const Title = (props) => {
+  const { id } = useParams()
+
+  const [values, setValues] = useState({
+    name: "",
+  })
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/tourList/" + id)
+      .then((res) => setValues({ ...res.data, name: res.data.name }))
+      .catch((err) => console.log(err))
+  }, [])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    axios
+      .put("http://localhost:3000/tourList/" + id, values)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+  }
+
+  // useEffect(() => {
+  //   setTitle(data.name)
+  // }
+  // useEffect(() => {
+  //   dispatch(editTourAction.title(title))
+  // }
   return (
     <>
       <div style={Styles.ehNvyi}>
-        <form action=''>
+        <form onSubmit={handleSubmit}>
           <div>
             <div style={Styles.iAWZCU}>
               <h1 style={Styles.titleHeader}>
@@ -42,11 +78,16 @@ const Title = () => {
                 type='text'
                 name=''
                 id=''
+                value={values.name}
                 style={Styles.inputTitle}
                 placeholder='Title...'
+                onChange={(e) => setValues({ ...values, name: e.target.value })}
               />
             </div>
           </div>
+          <button type='submit' style={Styles.buttonTitle}>
+            <h1>Update</h1>
+          </button>
         </form>
       </div>
     </>
