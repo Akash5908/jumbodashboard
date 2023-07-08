@@ -2,27 +2,44 @@ import React from "react"
 import Styles from "./style"
 
 import axios from "axios"
+
 import { useParams } from "react-router"
+import { useEffect } from "react"
+import { useState } from "react"
+
+import Button from "@mui/material/Button"
+import SendIcon from "@mui/icons-material/Save"
+import Stack from "@mui/material/Stack"
 
 const Location = () => {
-  const [data, setData] = React.useState([])
+  const [value, setValue] = React.useState({ location: "" })
 
   const { id } = useParams()
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get("http://localhost:3000/tourList/" + id)
       .then((res) => {
-        setData(res.data)
+        setValue({ ...res.data, location: res.data.location })
       })
       .catch((err) => {
         console.log(err)
       })
   }, [])
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios
+      .put("http://localhost:3000/tourList/" + id, value)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => console.log(err))
+  }
+
   return (
     <>
       <div style={Styles.ehNvyi}>
-        <form action=''>
+        <form onSubmit={handleSubmit}>
           <div>
             <div style={Styles.iAWZCU}>
               <h1 style={Styles.titleHeader}>
@@ -60,13 +77,29 @@ const Location = () => {
                 <input
                   type='text'
                   id='locationInput'
-                  value={data.location}
+                  value={value.location}
                   name=''
                   style={Styles.inputTitle}
                   placeholder='Enter Location..'
-                  required
+                  onChange={(e) =>
+                    setValue({ ...value, location: e.target.value })
+                  }
                 />
               </label>
+            </div>
+          </div>
+          <div style={{ marginTop: "5%" }}>
+            <div style={{ margin: "1%" }}>
+              <Stack direction='row'>
+                <Button
+                  type='submit'
+                  variant='contained'
+                  endIcon={<SendIcon />}
+                  style={{ margin: "auto" }}
+                >
+                  Update
+                </Button>
+              </Stack>
             </div>
           </div>
         </form>

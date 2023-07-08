@@ -1,35 +1,73 @@
 import React from "react"
 import Styles from "./style"
 import axios from "axios"
-import { useDispatch, useSelector } from "react-redux"
-import { editTourAction } from "app/reducToolkit/editTour"
-import { useParams } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { TourAddAction } from "../../../reducToolkit/editTour"
+
+import { useParams, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+
+import Button from "@mui/material/Button"
+import SendIcon from "@mui/icons-material/Save"
+import Stack from "@mui/material/Stack"
 
 const Title = (props) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const addTour = useSelector((state) => state.addTour.addTour)
+
   const { id } = useParams()
 
-  const [values, setValues] = useState({
-    name: "",
-  })
+  const ID = Math.floor(Math.random() * 100) + 1
+
+  const initialState = addTour
+    ? {
+        id: ID,
+        imagewebp: "",
+        imagejpeg: "",
+        alt: "",
+        link: "",
+        location: "",
+        duration: "",
+        name: "",
+        price: "",
+      }
+    : { name: "" }
+
+  const [values, setValues] = useState(initialState)
 
   const [data, setData] = useState([])
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/tourList/" + id)
-      .then((res) => setValues({ ...res.data, name: res.data.name }))
-      .catch((err) => console.log(err))
+    if (!addTour) {
+      axios
+        .get("http://localhost:3000/tourList/" + id)
+        .then((res) => {
+          setValues({ ...res.data, name: res.data.name })
+        })
+        .catch((err) => console.log(err))
+    }
   }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    axios
-      .put("http://localhost:3000/tourList/" + id, values)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
+    if (addTour) {
+      axios
+        .post("http://localhost:3000/tourList", values)
+        .then((res) => {
+          navigate("/overview")
+          dispatch(TourAddAction.addTour(false))
+        })
+        .catch((err) => console.log(err))
+    } else {
+      axios
+        .put("http://localhost:3000/tourList/" + id, values)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
+    }
   }
 
   // useEffect(() => {
@@ -85,9 +123,21 @@ const Title = (props) => {
               />
             </div>
           </div>
-          <button type='submit' style={Styles.buttonTitle}>
-            <h1>Update</h1>
-          </button>
+
+          <div style={{ marginTop: "5%" }}>
+            <div style={{ margin: "1%" }}>
+              <Stack direction='row'>
+                <Button
+                  type='submit'
+                  variant='contained'
+                  endIcon={<SendIcon />}
+                  style={{ margin: "auto" }}
+                >
+                  {addTour ? "Add" : "Update"}
+                </Button>
+              </Stack>
+            </div>
+          </div>
         </form>
       </div>
     </>

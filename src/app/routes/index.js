@@ -7,6 +7,7 @@ import Login2 from "app/pages/auth-pages/login2/Login2"
 import Setting from "app/pages/dashboard/features/setting"
 import OverView from "app/pages/dashboard/Experiences/overView"
 import TourEdit from "app/pages/dashboard/Experiences/tourEdit"
+import TourAdd from "app/pages/dashboard/Experiences/tourAdd"
 
 import Salesfeed from "app/pages/dashboard/book/Salesfeed"
 
@@ -36,6 +37,10 @@ const routesForPublic = [
   {
     path: "overview",
     element: <Page component={OverView} />,
+  },
+  {
+    path: "overview/addTour",
+    element: <Page component={TourAdd} />,
   },
   {
     path: "overview/touredit/:id",

@@ -17,20 +17,8 @@ import {
   GridRowEditStopReasons,
 } from "@mui/x-data-grid"
 
+import { useDispatch } from "react-redux"
 import axios from "axios"
-
-const roles = ["Market", "Finance", "Development"]
-const randomRole = () => {
-  return roles[Math.floor(Math.random() * roles.length)]
-}
-
-const generateRandomDate = () => {
-  const start = new Date(2020, 0, 1)
-  const end = new Date()
-  return new Date(
-    start.getTime() + Math.random() * (end.getTime() - start.getTime())
-  )
-}
 
 // const initialRows = data.map((tour, index) => ({
 //   id: index + 1,
@@ -44,10 +32,13 @@ const generateRandomDate = () => {
 const randomId = () => Math.floor(Math.random() * 10)
 
 function EditToolbar(props) {
+  const dispatch = useDispatch()
+
   const { setRows, setRowModesModel } = props
 
   const handleClick = () => {
     const id = randomId()
+    // dispatch(TourAddAction.tourAdd())
     // setRows((oldRows) => [...oldRows, { id, name: "", age: "", isNew: true }])
     // setRowModesModel((oldModel) => ({
     //   ...oldModel,
@@ -57,15 +48,22 @@ function EditToolbar(props) {
 
   return (
     <GridToolbarContainer>
-      <Button color='primary' startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
-      </Button>
+      <Link to={"addTour"}>
+        <Button color='primary' startIcon={<AddIcon />} onClick={handleClick}>
+          Add record
+        </Button>
+      </Link>
     </GridToolbarContainer>
   )
 }
 
-export default function TourTable() {
+export default function TourTable({ text }, { status }) {
   const [data, setData] = useState([])
+  const [filteredTours, setFilteredTours] = useState([])
+
+  // const [rowModesModel, setRowModesModel] = React.useState({}
+
+  console.log(text, "text")
 
   useEffect(() => {
     axios
@@ -74,20 +72,40 @@ export default function TourTable() {
       .catch((err) => console.log(err))
   }, [])
 
-  const initialRows = data.map((tour, index) => ({
-    id: tour.id,
-    image: tour.imagejpeg,
-    name: tour.name,
-    status: true,
-    price: tour.price,
-    role: tour.alt,
-  }))
+  useEffect(() => {
+    const filtered = data.filter((tour) => {
+      // Filter by text search
+      if (text.trim() === "") return true
+      return tour.name.toLowerCase().includes(text.toLowerCase())
+    })
+    setFilteredTours(filtered)
+  }, [data, text])
+
+  console.log(filteredTours, "filteredTours")
+
+  const initialRows = filteredTours
+    ? data.map((tour, index) => ({
+        id: tour.id,
+        image: tour.imagejpeg,
+        name: tour.name,
+        status: true,
+        price: tour.price,
+        role: tour.alt,
+      }))
+    : filteredTours.map((tour, index) => ({
+        id: tour.id,
+        image: tour.imagejpeg,
+        name: tour.name,
+        status: true,
+        price: tour.price,
+        role: tour.alt,
+      }))
   const [rows, setRows] = React.useState([])
   const [rowModesModel, setRowModesModel] = React.useState({})
 
   useEffect(() => {
     setRows(initialRows)
-  }, [data])
+  }, [data, text])
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -138,6 +156,7 @@ export default function TourTable() {
       align: "left",
       headerAlign: "left",
       editable: true,
+      filterable: true,
     },
     {
       field: "image",
@@ -158,6 +177,7 @@ export default function TourTable() {
       width: 100,
       align: "center",
       headerAlign: "center",
+      filterable: true,
     },
     {
       field: "tourId",
@@ -167,6 +187,7 @@ export default function TourTable() {
       align: "center",
       headerAlign: "center",
       editable: true,
+      filterable: true,
     },
     {
       field: "name",
@@ -175,10 +196,12 @@ export default function TourTable() {
       editable: true,
       align: "left",
       headerAlign: "left",
+      filterable: true,
     },
     {
       field: "price",
       headerName: "Price",
+      type: "number",
       width: 250,
       editable: true,
       align: "left",
@@ -191,6 +214,7 @@ export default function TourTable() {
       headerName: "Actions",
       width: 100,
       cellClassName: "actions",
+      filterable: true,
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit
 

@@ -4,8 +4,14 @@ import Styles from "./style"
 import axios from "axios"
 import { useParams } from "react-router"
 
+import { useSelector } from "react-redux"
+import Button from "@mui/material/Button"
+import SendIcon from "@mui/icons-material/Save"
+import Stack from "@mui/material/Stack"
+
 const Duration = () => {
   const [data, setData] = React.useState([])
+  const addTour = useSelector((state) => state.addTour.addTour)
   const [values, setValues] = React.useState({
     duration: "",
   })
@@ -130,9 +136,20 @@ const Duration = () => {
               </div>
             </div>
           </div>
-          <button type='submit' style={Styles.buttonTitle}>
-            Update
-          </button>
+          <div style={{ marginTop: "5%" }}>
+            <div style={{ margin: "1%" }}>
+              <Stack direction='row'>
+                <Button
+                  type='submit'
+                  variant='contained'
+                  endIcon={<SendIcon />}
+                  style={{ margin: "auto" }}
+                >
+                  {addTour ? "Add" : "Update"}
+                </Button>
+              </Stack>
+            </div>
+          </div>
         </form>
       </div>
     </>

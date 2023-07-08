@@ -6,9 +6,25 @@ import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import TourTable from "./tourTable"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import axios from "axios"
+
+import { TourAddAction } from "../../../reducToolkit/editTour"
+
 const OverView = () => {
+  const dispatch = useDispatch()
   const [text, setText] = React.useState("")
   const [status, setStatus] = React.useState("")
+  const [tours, setTours] = React.useState([])
+
+  useEffect(() => {
+    dispatch(TourAddAction.tourAdd(false))
+    axios
+      .get("http://localhost:3000/tourList")
+      .then((res) => setTours(res.data))
+      .catch((err) => console.log(err))
+  }, [])
 
   const handleChange = (event) => {
     setStatus(event.target.value)
@@ -75,14 +91,26 @@ const OverView = () => {
                 <MenuItem value='none'>
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value='Active'>Active</MenuItem>
-                <MenuItem value='inActive'>InActive</MenuItem>
+                <MenuItem
+                  value='Active'
+                  selected
+                  onClick={() => setStatus("Active")}
+                >
+                  Active
+                </MenuItem>
+
+                <MenuItem
+                  value='inActive'
+                  onClick={() => setStatus("inActive")}
+                >
+                  InActive
+                </MenuItem>
               </Select>
             </span>
           </Grid>
           {/* </div> */}
         </Grid>
-        <TourTable />
+        <TourTable text={text} status={status} />
       </Box>
     </div>
   )

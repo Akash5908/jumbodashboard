@@ -2,18 +2,17 @@ import TourList from "../pages/Data/data"
 import { createSlice } from "@reduxjs/toolkit"
 import { createStore } from "redux"
 
-let initialState = TourList
-
-const editTourSlice = createSlice({
-  name: "editTour",
-  initialState,
+const addTourSlice = createSlice({
+  name: "addTour",
+  initialState: { addTour: false },
   reducers: {
-    title() {
-      console.log("React here")
+    tourAdd(state, action) {
+      state.addTour = action.payload
+      console.log(state.addTour, "reducer")
     },
   },
 })
 
-export const editTourAction = editTourSlice.actions
+export const TourAddAction = addTourSlice.actions
 
-export default editTourSlice.reducer
+export default addTourSlice.reducer
