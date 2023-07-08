@@ -88,7 +88,7 @@ const Duration = () => {
                   style={Styles.inputContainerInput}
                   type='number'
                   id='days'
-                  value={dayInt}
+                  value={dayInt.toFixed()}
                   min='0'
                   max='365'
                   onChange={(e) =>
@@ -104,9 +104,12 @@ const Duration = () => {
                   style={Styles.inputContainerInput}
                   type='number'
                   id='hours'
-                  value={hourInt}
+                  value={hourInt.toFixed()}
                   min='0'
                   max='23'
+                  onChange={(e) =>
+                    setValues({ ...values, duration: e.target.value })
+                  }
                 />
               </div>
               <div styles={Styles.inputContainer}>
@@ -117,9 +120,12 @@ const Duration = () => {
                   style={Styles.inputContainerInput}
                   type='number'
                   id='minutes'
-                  value={minInt}
+                  value={minInt.toFixed()}
                   min='0'
                   max='59'
+                  onChange={(e) =>
+                    setValues({ ...values, duration: e.target.value })
+                  }
                 />
               </div>
             </div>

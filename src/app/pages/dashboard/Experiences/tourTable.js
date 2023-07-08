@@ -146,7 +146,7 @@ export default function TourTable() {
         <img
           src={params.value}
           alt=''
-          srcset=''
+          srcSet=''
           style={{ width: "90%", height: "auto", borderRadius: "10px" }}
         />
       ),
