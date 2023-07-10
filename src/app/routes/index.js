@@ -9,9 +9,11 @@ import OverView from "app/pages/dashboard/Experiences/overView"
 import TourEdit from "app/pages/dashboard/Experiences/tourEdit"
 import TourAdd from "app/pages/dashboard/Experiences/tourAdd"
 
+import MetricPage from "app/metrics/Metrics"
 import Salesfeed from "app/pages/dashboard/book/Salesfeed"
 
 import CalendarSelectable from "app/pages/dashboard/calendar/CalendarSelectable"
+import { element } from "prop-types"
 
 /**
  routes which you want to make accessible to both authenticated and anonymous users
@@ -46,7 +48,10 @@ const routesForPublic = [
     path: "overview/touredit/:id",
     element: <Page component={TourEdit} />,
   },
-
+  {
+    path: "/reportsoverview",
+    element: <Page component={MetricPage} />,
+  },
   {
     path: "/setting",
     element: <Page component={Setting} />,
