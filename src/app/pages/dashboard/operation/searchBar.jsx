@@ -16,7 +16,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar"
 const SearchBar = () => {
   const [text, setText] = React.useState("")
   const [status, setStatus] = React.useState("Active")
-  const [dateSelected, setDateSelected] = React.useState(dayjs("2022-04-17"))
+  const [dateSelected, setDateSelected] = React.useState(dayjs())
 
   return (
     <div style={{ padding: "0" }}>

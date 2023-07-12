@@ -10,6 +10,8 @@ import SendIcon from "@mui/icons-material/Save"
 import Stack from "@mui/material/Stack"
 
 import Switch from "@mui/material/Switch"
+import { set } from "date-fns-jalali"
+import { init } from "i18next"
 
 const IOSSwitch = styled((props) => (
   <Switch focusVisibleClassName='.Mui-focusVisible' disableRipple {...props} />
@@ -62,68 +64,98 @@ const IOSSwitch = styled((props) => (
   },
 }))
 
-export default function ToggleStatus({ text, date }) {
-  const ID = date
+export default function ToggleStatus({ date }) {
+  const formattedDate = date.format("DD MM YYYY")
   const [data, setData] = useState([])
-  const [checkRows, setCheckedRows] = useState({
-    id: "",
-    name: "",
-  })
+  const [checkRows, setCheckedRows] = useState([])
   const [noTour, setNoTour] = useState([])
+  const [value, setValue] = useState({ id: "", name: "" })
+  let tourName = false
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/tourList")
       .then((res) => setData(res.data))
       .catch((err) => console.log(err))
+  }, [])
+
+  useEffect(() => {
     axios
       .get("http://localhost:3000/notour")
       .then((res) => setNoTour(res.data))
       .catch((err) => console.log(err))
-  }, [data, noTour])
+  }, [noTour])
 
   const handleChange = (event, id) => {
     if (!event.target.checked) {
-      const newObject = initialRows.find((row) => {
-        if (row.id === id) {
-          return { row }
-        }
-        return false
-      })
-      // setNoTour((prev) => {
-      //   const updatedObjects = prev.map((obj) => {
-      //     if (obj.id === newObject.id) {
-      //       return { ...obj, tour: [{ ...obj.tourname, newObject.tour.name }] }
-      //     }
-      //   })
-      // })
+      const newValue = initialRows.filter((obj) => obj.id == id)
+      console.log(newValue, "newValue")
+      setCheckedRows([...checkRows, newValue[0].tour])
     }
+    console.log(checkRows, "checkRows")
 
-    //   const isChecked = event.target.checked
-    //   let checkedRow = []
-    //   //event.target.checked give the true & false on check/unchecked
-    //   if (!isChecked) {
-    //     checkedRow = initialRows.find((row) => {
-    //       if (row.id === id) {
-    //         return { id: ID.format("DD MM YYYY"), name: row.name }
-    //       } else return false
-    //     })
-    //   } else {
-    //   }
-    //   console.log(checkedRow, "checkedRow")
-    // }
-    //   useEffect(() => {
-    //     console.log(checkRows, "checkRows")
-    //     if (checkRows) {
-    //       console.log("inside if")
-    //       axios.post("http://localhost:3000/notour", checkRows)
-    //     }
-    //   }, [checkRows])
+    setValue((prevValue) => ({
+      ...prevValue,
+      id: formattedDate,
+      name: checkRows,
+    }))
   }
+
+  const buttonClick = (e) => {
+    e.preventDefault()
+    console.log(value, "setvalue")
+
+    const existingIndex = noTour.findIndex((tour) => tour.id === value.id)
+
+    if (existingIndex !== -1) {
+      const updatedNoTour = [...noTour]
+      updatedNoTour[existingIndex].name = checkRows
+      axios
+        .put(
+          `http://localhost:3000/notour/${formattedDate}`,
+          updatedNoTour[existingIndex]
+        )
+        .then((res) => {
+          console.log(res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    } else {
+      if (value.name.length > 0) {
+        axios
+          .post("http://localhost:3000/notour", value)
+          .then((res) => {
+            console.log(res.data)
+            // Handle success if needed
+          })
+          .catch((err) => {
+            console.log(err)
+            // Handle error if needed
+          })
+      }
+    }
+  }
+
+  // const buttonClick = (e) => {
+  //   e.preventDefault()
+
+  //   console.log(value, "setvalue")
+  // }
+
+  // useEffect(() => {
+  //   if (value) {
+  //     axios
+  //       .post("http://localhost:3000/notour", value)
+  //       .then((res) => console.log(res.data))
+  //       .catch((err) => console.log(err))
+  //     tourName = !tourName
+  //   }
+  // }, [value])
 
   const initialRows = data.map((tour, index) => ({
     id: tour.id,
-    tour: [{ name: tour.name }],
+    tour: tour.name,
   }))
 
   const [rows, setRows] = React.useState([])
@@ -131,7 +163,7 @@ export default function ToggleStatus({ text, date }) {
 
   useEffect(() => {
     setRows(initialRows)
-  }, [data, text])
+  }, [data])
 
   const columns = [
     {
@@ -145,7 +177,7 @@ export default function ToggleStatus({ text, date }) {
       filterable: true,
     },
     {
-      field: "name",
+      field: "tour",
       headerName: "Tour Name",
       width: 700,
       editable: true,
@@ -202,6 +234,7 @@ export default function ToggleStatus({ text, date }) {
               variant='contained'
               endIcon={<SendIcon />}
               style={{ margin: "auto" }}
+              onClick={(e) => buttonClick(e)}
             >
               Update
             </Button>
