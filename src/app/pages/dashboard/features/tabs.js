@@ -12,20 +12,11 @@ import Location from "../edit/location"
 import Photos from "../edit/photos"
 import Price from "../edit/price"
 import Description from "../edit/description"
+import Status from "../edit/status"
 
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useEffect } from "react"
-
-// const tabLabels = [
-//   "Title",
-//   "Duration",
-//   "Location",
-//   "Description",
-//   "Price",
-//   "Photos",
-// ]
-// const tabComponents = [Title, Duration, Location, Description, Price, Photos]
 
 const TabButton = () => {
   const addTour = useSelector((state) => state.addTour.addTour)
@@ -33,18 +24,19 @@ const TabButton = () => {
   const { id } = useParams()
   const tabLabels = addTour
     ? ["Title"]
-    : ["Title", "Duration", "Location", "Description", "Price", "Photos"]
+    : [
+        "Title",
+        "Price",
+        "Duration",
+        "Location",
+        "Status",
+        "Description",
+        "Photos",
+      ]
 
   const tabComponents = addTour
     ? [Title]
-    : [Title, Duration, Location, Description, Price, Photos]
-
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3000/tourList/" + id)
-  //     .then((res) => (res.data))
-  //     .catch((err) => console.log(err))
-  // }, [])
+    : [Title, Price, Duration, Location, Status, Description, Photos]
 
   const handleChange = (event, newValue) => {
     setValue(newValue)

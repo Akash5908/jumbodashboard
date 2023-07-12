@@ -11,6 +11,7 @@ import TourAdd from "app/pages/dashboard/Experiences/tourAdd"
 
 import MetricPage from "app/metrics/Metrics"
 import Salesfeed from "app/pages/dashboard/book/Salesfeed"
+import SearchBar from "app/pages/dashboard/operation/searchBar"
 
 import CalendarSelectable from "app/pages/dashboard/calendar/CalendarSelectable"
 import { element } from "prop-types"
@@ -48,6 +49,7 @@ const routesForPublic = [
     path: "overview/touredit/:id",
     element: <Page component={TourEdit} />,
   },
+  { path: "operationsoverview", element: <Page component={SearchBar} /> },
   {
     path: "/reportsoverview",
     element: <Page component={MetricPage} />,

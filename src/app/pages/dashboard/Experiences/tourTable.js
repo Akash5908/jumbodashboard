@@ -20,51 +20,29 @@ import {
 import { useDispatch } from "react-redux"
 import axios from "axios"
 
-// const initialRows = data.map((tour, index) => ({
-//   id: index + 1,
-//   image: tour.imagejpeg,
-//   name: tour.name,
-//   status: true,
-//   price: tour.price,
-//   role: tour.alt,
-// }))
-
 const randomId = () => Math.floor(Math.random() * 10)
 
 function EditToolbar(props) {
-  const dispatch = useDispatch()
-
   const { setRows, setRowModesModel } = props
 
   const handleClick = () => {
     const id = randomId()
-    // dispatch(TourAddAction.tourAdd())
-    // setRows((oldRows) => [...oldRows, { id, name: "", age: "", isNew: true }])
-    // setRowModesModel((oldModel) => ({
-    //   ...oldModel,
-    //   [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
-    // }))
   }
 
   return (
     <GridToolbarContainer>
       <Link to={"addTour"}>
         <Button color='primary' startIcon={<AddIcon />} onClick={handleClick}>
-          Add record
+          Add Tour
         </Button>
       </Link>
     </GridToolbarContainer>
   )
 }
 
-export default function TourTable({ text }, { status }) {
+export default function TourTable({ text, status }) {
   const [data, setData] = useState([])
-  const [filteredTours, setFilteredTours] = useState([])
-
-  // const [rowModesModel, setRowModesModel] = React.useState({}
-
-  console.log(text, "text")
-
+  // console.log(status)
   useEffect(() => {
     axios
       .get("http://localhost:3000/tourList")
@@ -72,34 +50,25 @@ export default function TourTable({ text }, { status }) {
       .catch((err) => console.log(err))
   }, [])
 
-  useEffect(() => {
-    const filtered = data.filter((tour) => {
-      // Filter by text search
+  const initialRows = data
+    .filter((tour) => {
       if (text.trim() === "") return true
       return tour.name.toLowerCase().includes(text.toLowerCase())
     })
-    setFilteredTours(filtered)
-  }, [data, text])
+    .filter((tour) => {
+      if (status.trim() === "") return true
+      return tour.status.toLowerCase().includes(status.toLowerCase())
+    })
+    .map((tour, index) => ({
+      id: tour.id,
+      image: tour.imagejpeg,
+      name: tour.name,
+      duration: tour.duration,
+      status: tour.status,
+      price: tour.price,
+      role: tour.alt,
+    }))
 
-  console.log(filteredTours, "filteredTours")
-
-  const initialRows = filteredTours
-    ? data.map((tour, index) => ({
-        id: tour.id,
-        image: tour.imagejpeg,
-        name: tour.name,
-        status: true,
-        price: tour.price,
-        role: tour.alt,
-      }))
-    : filteredTours.map((tour, index) => ({
-        id: tour.id,
-        image: tour.imagejpeg,
-        name: tour.name,
-        status: true,
-        price: tour.price,
-        role: tour.alt,
-      }))
   const [rows, setRows] = React.useState([])
   const [rowModesModel, setRowModesModel] = React.useState({})
 
@@ -107,45 +76,29 @@ export default function TourTable({ text }, { status }) {
     setRows(initialRows)
   }, [data, text])
 
-  const handleRowEditStop = (params, event) => {
-    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true
-    }
-  }
-
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } })
-  }
-
-  // const handleSaveClick = (id) => () => {
-  //   setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } })
-  // }
-
-  const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id))
-  }
-
-  // const handleCancelClick = (id) => () => {
-  //   setRowModesModel({
-  //     ...rowModesModel,
-  //     [id]: { mode: GridRowModes.View, ignoreModifications: true },
-  //   })
-
-  //   const editedRow = rows.find((row) => row.id === id)
-  //   if (editedRow.isNew) {
-  //     setRows(rows.filter((row) => row.id !== id))
+  // const handleRowEditStop = (params, event) => {
+  //   if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+  //     event.defaultMuiPrevented = true
   //   }
   // }
 
-  const processRowUpdate = (newRow) => {
-    const updatedRow = { ...newRow, isNew: false }
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)))
-    return updatedRow
-  }
+  // const handleEditClick = (id) => () => {
+  //   setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } })
+  // }
 
-  const handleRowModesModelChange = (newRowModesModel) => {
-    setRowModesModel(newRowModesModel)
-  }
+  // const handleDeleteClick = (id) => () => {
+  //   setRows(rows.filter((row) => row.id !== id))
+  // }
+
+  // const processRowUpdate = (newRow) => {
+  //   const updatedRow = { ...newRow, isNew: false }
+  //   setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)))
+  //   return updatedRow
+  // }
+
+  // const handleRowModesModelChange = (newRowModesModel) => {
+  //   setRowModesModel(newRowModesModel)
+  // }
 
   const columns = [
     {
@@ -228,13 +181,6 @@ export default function TourTable({ text }, { status }) {
               }}
               // onClick={handleSaveClick(id)}
             />,
-            // <GridActionsCellItem
-            //   icon={<CancelIcon />}
-            //   label='Cancel'
-            //   className='textPrimary'
-            //   onClick={handleCancelClick(id)}
-            //   color='inherit'
-            // />,
           ]
         }
 
@@ -251,7 +197,7 @@ export default function TourTable({ text }, { status }) {
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label='Delete'
-            onClick={handleDeleteClick(id)}
+            // onClick={handleDeleteClick(id)}
             color='inherit'
           />,
         ]
@@ -277,9 +223,9 @@ export default function TourTable({ text }, { status }) {
         columns={columns}
         editMode='row'
         rowModesModel={rowModesModel}
-        onRowModesModelChange={handleRowModesModelChange}
-        onRowEditStop={handleRowEditStop}
-        processRowUpdate={processRowUpdate}
+        // onRowModesModelChange={handleRowModesModelChange}
+        // onRowEditStop={handleRowEditStop}
+        // processRowUpdate={processRowUpdate}
         slots={{
           toolbar: EditToolbar,
         }}

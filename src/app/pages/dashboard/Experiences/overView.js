@@ -1,34 +1,16 @@
-import React, { useState } from "react"
+import React from "react"
 import Box from "@mui/material/Box"
-import { Grid, Select } from "@mui/material"
+import { Grid } from "@mui/material"
 import TextField from "@mui/material/TextField"
-import InputLabel from "@mui/material/InputLabel"
-import MenuItem from "@mui/material/MenuItem"
-import FormControl from "@mui/material/FormControl"
-import TourTable from "./tourTable"
-import { useEffect } from "react"
-import { useDispatch } from "react-redux"
-import axios from "axios"
 
-import { TourAddAction } from "../../../reducToolkit/editTour"
+import TourTable from "./tourTable"
+
+import { useDispatch } from "react-redux"
 
 const OverView = () => {
   const dispatch = useDispatch()
   const [text, setText] = React.useState("")
-  const [status, setStatus] = React.useState("")
-  const [tours, setTours] = React.useState([])
-
-  useEffect(() => {
-    dispatch(TourAddAction.tourAdd(false))
-    axios
-      .get("http://localhost:3000/tourList")
-      .then((res) => setTours(res.data))
-      .catch((err) => console.log(err))
-  }, [])
-
-  const handleChange = (event) => {
-    setStatus(event.target.value)
-  }
+  const [status, setStatus] = React.useState("Active")
 
   return (
     <div style={{ padding: "0" }}>
@@ -79,34 +61,25 @@ const OverView = () => {
           > */}
           <Grid item xs={12} sm={12} md={3}>
             {/* <InputLabel id='demo-select-small-label'>Status</InputLabel> */}
-            <span style={{ boxSizing: "border-box" }}>
+            {/* <span style={{ boxSizing: "border-box" }}>
               <Select
                 labelId='demo-select-small-label'
                 id='demo-select-small'
                 style={{ marginTop: "8px", marginBottom: "16px" }}
                 value={status}
                 label='Status'
-                onChange={handleChange}
+                onChange={(e) => setStatus(e.target.value)}
               >
                 <MenuItem value='none'>
                   <em>None</em>
                 </MenuItem>
-                <MenuItem
-                  value='Active'
-                  selected
-                  onClick={() => setStatus("Active")}
-                >
+                <MenuItem value='Active' selected>
                   Active
                 </MenuItem>
 
-                <MenuItem
-                  value='inActive'
-                  onClick={() => setStatus("inActive")}
-                >
-                  InActive
-                </MenuItem>
+                <MenuItem value='inActive'>InActive</MenuItem>
               </Select>
-            </span>
+            </span> */}
           </Grid>
           {/* </div> */}
         </Grid>
