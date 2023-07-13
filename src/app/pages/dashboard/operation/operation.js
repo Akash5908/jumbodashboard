@@ -87,12 +87,18 @@ export default function ToggleStatus({ date }) {
   }, [noTour])
 
   const handleChange = (event, id) => {
+    console.log(tourName, "tiour")
     if (!event.target.checked) {
       const newValue = initialRows.filter((obj) => obj.id == id)
       console.log(newValue, "newValue")
       setCheckedRows([...checkRows, newValue[0].tour])
+
+      console.log(checkRows, "checkRows")
+    } else {
+      const newValue = initialRows.filter((obj) => obj.id == id)
+      setCheckedRows(checkRows.filter((tour) => tour !== newValue[0].tour))
+      console.log(checkRows, "OnnewValue")
     }
-    console.log(checkRows, "checkRows")
 
     setValue((prevValue) => ({
       ...prevValue,
@@ -137,32 +143,26 @@ export default function ToggleStatus({ date }) {
     }
   }
 
-  // const buttonClick = (e) => {
-  //   e.preventDefault()
-
-  //   console.log(value, "setvalue")
-  // }
-
-  // useEffect(() => {
-  //   if (value) {
-  //     axios
-  //       .post("http://localhost:3000/notour", value)
-  //       .then((res) => console.log(res.data))
-  //       .catch((err) => console.log(err))
-  //     tourName = !tourName
-  //   }
-  // }, [value])
-
   const initialRows = data.map((tour, index) => ({
     id: tour.id,
     tour: tour.name,
   }))
+
+  const isTourChecked = (tourName) => {
+    const existingTour = noTour.find((item) => item.id === formattedDate)
+    if (existingTour) {
+      return !existingTour.name.includes(tourName)
+    }
+    return true
+  }
 
   const [rows, setRows] = React.useState([])
   const [rowModesModel, setRowModesModel] = React.useState({})
 
   useEffect(() => {
     setRows(initialRows)
+    console.log(initialRows, "initialRows")
+    console.log(rows, "Rows")
   }, [data])
 
   const columns = [
@@ -194,12 +194,14 @@ export default function ToggleStatus({ date }) {
       cellClassName: "actions",
       filterable: true,
       getActions: ({ id }) => {
+        const tourname = rows.find((tour) => tour.id === id)?.tour
+        const checked = isTourChecked(tourname)
         return [
           <GridActionsCellItem
             icon={
               <IOSSwitch
                 sx={{ m: 1 }}
-                defaultChecked
+                checked={checked}
                 onChange={(event) => handleChange(event, id)}
               />
             }

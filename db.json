@@ -450,41 +450,28 @@
   ],
   "notour": [
     {
-      "id": "17 04 2022",
-      "name": [
-        "Shahjahan Tour",
-        "Galib Tour",
-        "Raj State",
-        "Nizamuddin Tour",
-        "Yamuna Tour",
-        "Street Food Safari",
-        "Shahjahan Tour",
-        "Galib Tour"
-      ]
+      "id": "13 07 2023",
+      "name": []
     },
     {
-      "id": "13 07 2023",
+      "id": "19 07 2023",
       "name": [
-        "Shahjahan Tour",
-        "Galib Tour",
-        "Raj State"
+        "Raj State",
+        "Nizamuddin Tour"
       ]
     },
     {
       "id": "14 07 2023",
       "name": [
-        "Shahjahan Tour",
-        "Galib Tour",
-        "Raj State"
+        "Shahjahan Tour"
       ]
     },
     {
-      "id": "20 07 2023",
+      "id": "15 07 2023",
       "name": [
         "Shahjahan Tour",
-        "Galib Tour",
-        "Raj State",
-        "Nizamuddin Tour"
+        "Shahjahan Tour",
+        "Galib Tour"
       ]
     }
   ]

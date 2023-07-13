@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import ToggleStatus from "./operation"
 
 import Box from "@mui/material/Box"
@@ -17,6 +17,11 @@ const SearchBar = () => {
   const [text, setText] = React.useState("")
   const [status, setStatus] = React.useState("Active")
   const [dateSelected, setDateSelected] = React.useState(dayjs())
+
+  const handleDateChange = (newDateSelected) => {
+    setDateSelected(newDateSelected)
+    // Render the ToggleStatus component with the new dateSelected prop
+  }
 
   return (
     <div style={{ padding: "0" }}>
@@ -65,8 +70,7 @@ const SearchBar = () => {
               {dateSelected.format("ddd, DD MM YYYY")}
             </h2>
           </div>
-
-          <ToggleStatus date={dateSelected} />
+          <ToggleStatus date={dateSelected} onStatusChange={setStatus} />
         </Box>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -74,9 +78,7 @@ const SearchBar = () => {
               <DemoItem label='Controlled calendar'>
                 <DateCalendar
                   vlaue={dateSelected}
-                  onChange={(newdateSelected) =>
-                    setDateSelected(newdateSelected)
-                  }
+                  onChange={handleDateChange}
                 />
               </DemoItem>
             </DemoContainer>
