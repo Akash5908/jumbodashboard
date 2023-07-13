@@ -119,7 +119,7 @@ const Salesfeed = () => {
   };
   return (
     <div style={{ padding: '0' }}>
-      <div  style={{marginBottom: '20px'}}>
+      <div  style={{marginBottom: '20px',marginTop:"-30px"}}>
         <a href="#">Home</a> {'>'} <span>Bookings</span>
       </div>
       <Typography variant="h1" align="start" gutterBottom>

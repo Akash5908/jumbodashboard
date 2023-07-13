@@ -95,9 +95,9 @@ export const calendarData = {
 };
 
 export const cultures = [
-    {id: 'en', title: 'en'},
-    {id: 'en-GB', title: 'en-GB'},
-    {id: 'es', title: 'es'},
-    {id: 'fr', title: 'fr'},
-    {id: 'ar-AE', title: 'ar-AE'},
+    {id: 'dt', title: 'Delhi tours'},
+    {id: 'ks', title: 'Krishna tours'},
+    {id: 'st', title: 'Shahjahan tours'},
+    {id: 'sfs', title: 'Street Food safari'},
+    {id: 'AE', title: 'Agra tours'},
 ];
