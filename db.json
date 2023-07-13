@@ -160,18 +160,6 @@
       "name": "gsgsdg",
       "id": 14,
       "status": "Active"
-    },
-    {
-      "id": "17 04 2022",
-      "name": [
-        "Shahjahan Tour",
-        "Galib Tour",
-        "Raj State"
-      ]
-    },
-    {
-      "id": 15,
-      "name": ""
     }
   ],
   "response": [
@@ -450,26 +438,35 @@
   ],
   "notour": [
     {
-      "id": "13 07 2023",
-      "name": []
-    },
-    {
-      "id": "19 07 2023",
+      "id": "14 07 2023",
       "name": [
-        "Raj State",
-        "Nizamuddin Tour"
+        "Raj State"
       ]
     },
     {
-      "id": "14 07 2023",
+      "id": "13 07 2023",
       "name": [
-        "Shahjahan Tour"
+        "Shahjahan Tour",
+        "Galib Tour",
+        "Raj State"
       ]
     },
     {
       "id": "15 07 2023",
       "name": [
-        "Shahjahan Tour",
+        "Galib Tour",
+        "Nizamuddin Tour",
+        "Delhi 6 Diaries"
+      ]
+    },
+    [],
+    {
+      "id": "21 07 2023",
+      "name": []
+    },
+    {
+      "id": "27 07 2023",
+      "name": [
         "Shahjahan Tour",
         "Galib Tour"
       ]

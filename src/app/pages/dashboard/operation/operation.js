@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react"
 import Box from "@mui/material/Box"
-
 import axios from "axios"
-
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid"
 import { styled } from "@mui/material/styles"
 import Button from "@mui/material/Button"
 import SendIcon from "@mui/icons-material/Save"
 import Stack from "@mui/material/Stack"
-
 import Switch from "@mui/material/Switch"
 import { set } from "date-fns-jalali"
 import { init } from "i18next"
+import is from "date-fns/esm/locale/is/index.js"
 
 const IOSSwitch = styled((props) => (
   <Switch focusVisibleClassName='.Mui-focusVisible' disableRipple {...props} />
@@ -70,7 +68,6 @@ export default function ToggleStatus({ date }) {
   const [checkRows, setCheckedRows] = useState([])
   const [noTour, setNoTour] = useState([])
   const [value, setValue] = useState({ id: "", name: "" })
-  let tourName = false
 
   useEffect(() => {
     axios
@@ -84,21 +81,22 @@ export default function ToggleStatus({ date }) {
       .get("http://localhost:3000/notour")
       .then((res) => setNoTour(res.data))
       .catch((err) => console.log(err))
-  }, [noTour])
+  }, [])
+
+  useEffect(() => {
+    setValue([])
+  }, [formattedDate])
 
   const handleChange = (event, id) => {
-    console.log(tourName, "tiour")
     if (!event.target.checked) {
       const newValue = initialRows.filter((obj) => obj.id == id)
-      console.log(newValue, "newValue")
       setCheckedRows([...checkRows, newValue[0].tour])
-
-      console.log(checkRows, "checkRows")
     } else {
       const newValue = initialRows.filter((obj) => obj.id == id)
       setCheckedRows(checkRows.filter((tour) => tour !== newValue[0].tour))
-      console.log(checkRows, "OnnewValue")
     }
+
+    console.log(checkRows, "checkRows")
 
     setValue((prevValue) => ({
       ...prevValue,
@@ -111,7 +109,7 @@ export default function ToggleStatus({ date }) {
     e.preventDefault()
     console.log(value, "setvalue")
 
-    const existingIndex = noTour.findIndex((tour) => tour.id === value.id)
+    const existingIndex = noTour.findIndex((tour) => tour.id == value.id)
 
     if (existingIndex !== -1) {
       const updatedNoTour = [...noTour]
@@ -141,7 +139,25 @@ export default function ToggleStatus({ date }) {
           })
       }
     }
+    setTimeout(() => {
+      window.location.reload()
+    }, 700)
   }
+
+  useEffect(() => {
+    noTour.map((tour) => {
+      if (tour.name.length === 0) {
+        axios
+          .delete(`http://localhost:3000/notour/${formattedDate}`)
+          .then((res) => {
+            console.log(res.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
+    })
+  }, [])
 
   const initialRows = data.map((tour, index) => ({
     id: tour.id,
@@ -150,7 +166,7 @@ export default function ToggleStatus({ date }) {
 
   const isTourChecked = (tourName) => {
     const existingTour = noTour.find((item) => item.id === formattedDate)
-    if (existingTour) {
+    if (existingTour && existingTour.name) {
       return !existingTour.name.includes(tourName)
     }
     return true
@@ -161,8 +177,6 @@ export default function ToggleStatus({ date }) {
 
   useEffect(() => {
     setRows(initialRows)
-    console.log(initialRows, "initialRows")
-    console.log(rows, "Rows")
   }, [data])
 
   const columns = [
@@ -248,15 +262,6 @@ export default function ToggleStatus({ date }) {
         columns={columns}
         editMode='row'
         rowModesModel={rowModesModel}
-        // onRowModesModelChange={handleRowModesModelChange}
-        // onRowEditStop={handleRowEditStop}
-        // processRowUpdate={processRowUpdate}
-        // slots={{
-        //   toolbar: EditToolbar,
-        // }}
-        // slotProps={{
-        //   toolbar: { setRows, setRowModesModel },
-        // }}
       />
     </Box>
   )

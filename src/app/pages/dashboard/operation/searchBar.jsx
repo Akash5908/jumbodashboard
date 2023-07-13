@@ -17,11 +17,23 @@ const SearchBar = () => {
   const [text, setText] = React.useState("")
   const [status, setStatus] = React.useState("Active")
   const [dateSelected, setDateSelected] = React.useState(dayjs())
+  const [showToggleStatus, setShowToggleStatus] = useState(false)
 
   const handleDateChange = (newDateSelected) => {
     setDateSelected(newDateSelected)
+    setShowToggleStatus(false)
+
     // Render the ToggleStatus component with the new dateSelected prop
   }
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowToggleStatus(true)
+    }, 200) // Delay of 2 seconds
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [dateSelected])
 
   return (
     <div style={{ padding: "0" }}>
@@ -70,14 +82,18 @@ const SearchBar = () => {
               {dateSelected.format("ddd, DD MM YYYY")}
             </h2>
           </div>
-          <ToggleStatus date={dateSelected} onStatusChange={setStatus} />
+          {showToggleStatus ? (
+            <ToggleStatus date={dateSelected} onStatusChange={setStatus} />
+          ) : (
+            <h1>Loading</h1>
+          )}
         </Box>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DateCalendar", "DateCalendar"]}>
               <DemoItem label='Controlled calendar'>
                 <DateCalendar
-                  vlaue={dateSelected}
+                  value={dateSelected}
                   onChange={handleDateChange}
                 />
               </DemoItem>
