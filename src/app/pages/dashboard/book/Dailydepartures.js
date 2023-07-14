@@ -56,6 +56,7 @@ const Dailydepartures = () => {
   const [tour, setTour] = useState('');
   const [showUnbooked, setShowUnbooked] = useState(false);
   const [bookingStatus, setBookingStatus] = useState([]);
+  const [arrivedParticipants, setArrivedParticipants] = useState({});
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -115,10 +116,18 @@ const Dailydepartures = () => {
       return true;
     });
 
+    
     // Update the state to show the filtered results
     setFilteredBookings(filteredBookingResults);
     setShowResults(true);
   };
+  const handleArrivedParticipantsIncrease = (code) => {
+    setArrivedParticipants((prevState) => ({
+      ...prevState,
+      [code]: (prevState[code] || 0) + 1,
+    }));
+  };
+  
 
   return (
     <div style={{ padding: '0' }}>
@@ -288,14 +297,14 @@ const Dailydepartures = () => {
               Experience
             </Typography>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="subtitle1" style={{ marginRight: '5vw', color: 'grey' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', paddingRight:"0.5vw"}}>
+            <Typography variant="subtitle1" style={{ marginRight: '4vw', color: 'grey' }}>
               Available seats
             </Typography>
             <Typography variant="subtitle1" style={{ marginRight: '5vw', color: 'grey' }}>
               Participants
             </Typography>
-            <Typography variant="subtitle1" style={{ color: 'grey' }}>
+            <Typography variant="subtitle1" style={{ color: 'grey' ,marginRight: '0.5vw'}}>
               Arrived
             </Typography>
           </div>
@@ -328,9 +337,12 @@ const Dailydepartures = () => {
               <Typography variant="subtitle1" style={{ marginRight: '8vw', color: 'grey' }}>
                 0
               </Typography>
-              <Typography variant="subtitle1" style={{ color: 'grey', marginRight: '1vw' }}>
-                0
-              </Typography>
+              <Typography variant="subtitle1" style={{ color: 'grey', marginRight: '0.6vw' }}>
+      {arrivedParticipants[booking.code] || 0}
+    </Typography>
+              <div onClick={() => handleArrivedParticipantsIncrease(booking.code)} style={{cursor:'pointer',fontWeight:"600", fontSize: '1.6vw',marginTop:"-0.5vh"}}>
+      +
+    </div>
             </div>
           </div>
         ))}
