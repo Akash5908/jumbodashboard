@@ -20,16 +20,16 @@ const JumboCustomizer = () => {
     const {customizerVisibility, setCustomizerVisibility} = useApp();
     return (
         <Drawer
-            anchor={"right"}
-            open={customizerVisibility}
-            onClose={() => setCustomizerVisibility(false)}
-            sx={{
-                zIndex: 1205,
+            // anchor={"right"}
+            // open={customizerVisibility}
+            // onClose={() => setCustomizerVisibility(false)}
+            // sx={{
+            //     zIndex: 1205,
 
-                '& .MuiDrawer-paper': {
-                    width: 336
-                }
-            }}
+            //     '& .MuiDrawer-paper': {
+            //         width: 336
+            //     }
+            // }}
         >
             <Div
                 sx={{

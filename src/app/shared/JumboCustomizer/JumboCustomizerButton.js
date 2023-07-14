@@ -13,10 +13,10 @@ const JumboCustomizerButton = () => {
     return (
         ReactDOM.createPortal(
             <Fab
-                size={"medium"}
-                // color="primary"
-                aria-label="add"
-                onClick={toggleCustomizerVisibility}
+                // size={"medium"}
+                // // color="primary"
+                // aria-label="add"
+                // onClick={toggleCustomizerVisibility}
                 // sx={{
                 //     position: "fixed",
                 //     top: 150,

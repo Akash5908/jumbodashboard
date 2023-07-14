@@ -26,7 +26,7 @@ const Sidebar = () => {
         autoHideDuration={200}
         autoHideTimeout={500}
       >
-         <div style={{ position:"fixed", top:'12vh', left:'1vw', zIndex:"999"}}>
+         <div style={{ position:"fixed", top:'15vh', left:'1vw', zIndex:"999"}}>
          <SearchGlobal
             sx={{
               pb: 2, // Add bottom padding
@@ -52,7 +52,7 @@ const Sidebar = () => {
             </Div>
           }
         >
-          <div style={{  marginTop:"6vh"}}>
+          <div style={{  marginTop:"8vh"}}>
           <hr/>
             <Div
               sx={{
