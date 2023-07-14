@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import dayjs from 'dayjs';
+
 import {
   InputAdornment,
   OutlinedInput,
@@ -18,6 +19,7 @@ import {
   Container,
   Popover,
 } from '@mui/material';
+
 import {
   DemoContainer,
   DemoItem,
@@ -36,10 +38,10 @@ const tours = [
   { code: 'ST', name: 'Sahajahan Tour' },
 ];
 const booking = [
-  { code: 'DT', name: 'Delhi Tours', time: '1:00' },
-  { code: 'KT', name: "Krishna's Trails", time: '1:00' },
-  { code: 'SFS', name: 'Street Food Safari', time: '1:00' },
-  { code: 'ST', name: 'Sahajahan Tour' , time: '1:00'},
+  { code: 'DT', name: 'Delhi Tours', date: '2023-07-15', time: '1:00' },
+  { code: 'KT', name: "Krishna's Trails", date: '2023-07-16', time: '1:00' },
+  { code: 'SFS', name: 'Street Food Safari', date: '2023-07-17', time: '1:00' },
+  { code: 'ST', name: 'Sahajahan Tour', date: '2023-07-18', time: '1:00' },
 ];
 
 const Dailydepartures = () => {
@@ -49,6 +51,11 @@ const Dailydepartures = () => {
     dayjs(), // Set initial start date
     dayjs().add(1, 'day'), // Set initial end date
   ]);
+  const [filteredBookings, setFilteredBookings] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+  const [tour, setTour] = useState('');
+  const [showUnbooked, setShowUnbooked] = useState(false);
+  const [bookingStatus, setBookingStatus] = useState([]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -73,58 +80,6 @@ const Dailydepartures = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? 'date-range-popover' : undefined;
-  const [number, setNumber] = useState(1);
-  const [showResults, setShowResults] = useState(false);
-  const [bookingStatus, setBookingStatus] = useState([]);
-  const shortcutsItems = [
-    {
-      label: 'This Week',
-      getValue: () => {
-        const today = dayjs();
-        return [today.startOf('week'), today.endOf('week')];
-      },
-    },
-    {
-      label: 'Last Week',
-      getValue: () => {
-        const today = dayjs();
-        const prevWeek = today.subtract(7, 'day');
-        return [prevWeek.startOf('week'), prevWeek.endOf('week')];
-      },
-    },
-    {
-      label: 'Last 7 Days',
-      getValue: () => {
-        const today = dayjs();
-        return [today.subtract(7, 'day'), today];
-      },
-    },
-    {
-      label: 'Current Month',
-      getValue: () => {
-        const today = dayjs();
-        return [today.startOf('month'), today.endOf('month')];
-      },
-    },
-    {
-      label: 'Next Month',
-      getValue: () => {
-        const today = dayjs();
-        const startOfNextMonth = today.endOf('month').add(1, 'day');
-        return [startOfNextMonth, startOfNextMonth.endOf('month')];
-      },
-    },
-    { label: 'Reset', getValue: () => [null, null] },
-  ];
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Perform search or display results
-    setShowResults(true);
-  };
-
-  const [tour, setTour] = useState('');
-  const [showUnbooked, setShowUnbooked] = useState(false);
 
   const handleShowUnbookedChange = (event) => {
     setShowUnbooked(event.target.checked);
@@ -133,6 +88,36 @@ const Dailydepartures = () => {
   const handleBookingStatusChange = (event) => {
     const { value } = event.target;
     setBookingStatus(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Filter the booking data based on the selected date range and other criteria
+    const filteredBooking = booking.filter((bookings) => {
+      const bookingDate = dayjs(bookings.date);
+      return (
+        bookingDate.isSame(selectedDateRange[0], 'day') || // Check if it is the same day
+        bookingDate.isAfter(selectedDateRange[0], 'day') // Check if it is after the start date
+      ) && (
+        bookingDate.isSame(selectedDateRange[1], 'day') || // Check if it is the same day
+        bookingDate.isBefore(selectedDateRange[1], 'day') // Check if it is before the end date
+      );
+    });
+
+    // Perform additional filtering based on other criteria (e.g., tour selection, show unbooked option)
+    const filteredBookingResults = filteredBooking.filter((booking) => {
+      if (tour && booking.code !== tour) {
+        return false; // Filter out bookings not matching the selected tour
+      }
+      if (!showUnbooked && bookingStatus.includes(booking.code)) {
+        return false; // Filter out unbooked bookings if showUnbooked is false
+      }
+      return true;
+    });
+
+    // Update the state to show the filtered results
+    setFilteredBookings(filteredBookingResults);
+    setShowResults(true);
   };
 
   return (
@@ -181,35 +166,17 @@ const Dailydepartures = () => {
           boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
         }}
       >
-
         <Grid container spacing={0.8}>
           <Grid item xs={12} sm={12} md={3.5}>
             <FormControl fullWidth>
-              <InputLabel
-                id="experience"
-                style={{
-                  marginTop: '8px',
-                  marginBottom: '16px',
-                  zIndex: '4',
-                  backgroundColor: 'white',
-                  padding: '2px',
-                }}
-              >
-                Experience
-              </InputLabel>
+              <InputLabel id="experience">Experience</InputLabel>
               <Select
                 labelId="experience"
                 id="experience"
                 value={tour}
                 onChange={(e) => setTour(e.target.value)}
                 size="small"
-                style={{
-                  marginTop: '8px',
-                  marginBottom: '16px',
-                  width: '100%',
-                  backgroundColor: 'white',
-                  height: '5.4vh',
-                }}
+                style={{paddingBottom:"0.8vw"}}
               >
                 {tours.map((tour) => (
                   <MenuItem key={tour.code} value={tour.code}>
@@ -227,12 +194,10 @@ const Dailydepartures = () => {
               multiline
               maxRows={4}
               fullWidth
-              style={{ marginTop: '8px', marginBottom: '16px' }}
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
           </Grid>
-
           <Grid item xs={12} sm={5} md={1.5}>
             <FormControlLabel
               control={
@@ -242,51 +207,31 @@ const Dailydepartures = () => {
                 />
               }
               label="Show Unbooked"
-              style={{
-                marginTop: '10px',
-                marginBottom: '16px',
-                marginLeft: '1vw',
-              }}
             />
           </Grid>
-          <Grid item xs={12} sm={5} md={1}>
-            <Button
-              onClick={handleSubmit}
-              variant="contained"
-              style={{
-                padding: '8px',
-                border: '0.5px',
-                borderRadius: '6px',
-                height: '52px',
-                width: '100%',
-                marginTop: '8px',
-                backgroundColor: 'whitesmoke',
-                color: 'blue',
-              }}
-            >
+          <Grid item xs={12} sm={5} md={2}>
+            <Button onClick={handleSubmit} variant="contained" style={{padding:"0.5vw"}}>
               Search
             </Button>
           </Grid>
-
-          <Grid item xs={12} sm={12} md={4}>
+          <Grid item xs={12} sm={12} md={3}>
             <div>
               <div onClick={handleClick}>
                 {/* Container element that triggers the popover */}
                 <Box
                   sx={{
                     display: 'flex',
-                    alignItems: 'center',
+                    // alignItems: 'center',
+                      justifyContent:"center",
                     p: 2,
                     borderRadius: '4px',
                     border: '2px solid #d3d3d3',
                     cursor: 'pointer',
-                    marginTop: '8px',
-                    marginLeft: '6vw',
                   }}
                 >
-                  <Typography style={{ fontWeight: 'bold', paddingLeft: '1vw' }}>
-                    {selectedDateRange[0]?.toString().slice(0, 16) || ''} to{' '}
-                    {selectedDateRange[1]?.toString().slice(0, 16) || ''}
+                  <Typography style={{ fontWeight: 'bold'}}>
+                    {selectedDateRange[0]?.format('YYYY-MM-DD')} to{' '}
+                    {selectedDateRange[1]?.format('YYYY-MM-DD')}
                   </Typography>
                 </Box>
               </div>
@@ -325,7 +270,7 @@ const Dailydepartures = () => {
             </div>
           </Grid>
         </Grid>
-     
+
         {/* Flex container for "Start time," "Experience," "Available seats," "Participants," and "Arrived" */}
         <div
           style={{
@@ -335,51 +280,66 @@ const Dailydepartures = () => {
             marginBottom: '16px',
           }}
         >
-          <div style={{marginLeft:"0",  display: 'flex',
-            justifyContent: 'space-around'}}>
-          <Typography variant="subtitle1" style={{marginRight:"5vw", color:"grey"}} >Start time</Typography>
-          <Typography variant="subtitle1" style={{color:"grey"}} >Experience</Typography>
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <Typography variant="subtitle1" style={{ marginRight: '5vw', color: 'grey' }}>
+              Start time
+            </Typography>
+            <Typography variant="subtitle1" style={{ color: 'grey' }}>
+              Experience
+            </Typography>
           </div>
-          <div style={{marginLeft:"0",  display: 'flex',
-            justifyContent: 'space-between'}}>
-          <Typography variant="subtitle1"style={{marginRight:"5vw",color:"grey"}}>Available seats</Typography>
-          <Typography variant="subtitle1"style={{marginRight:"5vw",color:"grey"}}>Participants</Typography>
-          <Typography variant="subtitle1" style={{color:"grey"}}>Arrived</Typography>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography variant="subtitle1" style={{ marginRight: '5vw', color: 'grey' }}>
+              Available seats
+            </Typography>
+            <Typography variant="subtitle1" style={{ marginRight: '5vw', color: 'grey' }}>
+              Participants
+            </Typography>
+            <Typography variant="subtitle1" style={{ color: 'grey' }}>
+              Arrived
+            </Typography>
           </div>
-     
         </div>
-        {booking.map((bookings) => (
-                <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  marginBottom: '16px',
-                  backgroundColor: "whitesmoke",
-                  padding:"1vw"
-                }}
-              >
-              <div style={{marginLeft:"0",  display: 'flex',
-                  justifyContent: 'space-around'}}>
-                <Typography variant="subtitle1" style={{marginRight:"7vw", color:"grey"}} >{bookings.time}</Typography>
-                <Typography variant="subtitle1" style={{color:"grey"}} >{bookings.name} </Typography>
-                </div>
-                <div style={{marginLeft:"0",  display: 'flex',
-                  justifyContent: 'space-between'}}>
-                <Typography variant="subtitle1"style={{marginRight:"9vw",color:"grey"}}>10</Typography>
-                <Typography variant="subtitle1"style={{marginRight:"8vw",color:"grey"}}>0</Typography>
-                <Typography variant="subtitle1" style={{color:"grey", marginRight:"1vw"}}>0</Typography>
-                </div>
-                </div>
-                ))}
-       
-        {showResults && (
+
+        {filteredBookings.map((booking) => (
+          <div
+            key={booking.code}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%',
+              marginBottom: '16px',
+              backgroundColor: 'whitesmoke',
+              padding: '1vw',
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <Typography variant="subtitle1" style={{ marginRight: '7vw', color: 'grey' }}>
+                {booking.time}
+              </Typography>
+              <Typography variant="subtitle1" style={{ color: 'grey' }}>
+                {booking.name}
+              </Typography>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Typography variant="subtitle1" style={{ marginRight: '9vw', color: 'grey' }}>
+                10
+              </Typography>
+              <Typography variant="subtitle1" style={{ marginRight: '8vw', color: 'grey' }}>
+                0
+              </Typography>
+              <Typography variant="subtitle1" style={{ color: 'grey', marginRight: '1vw' }}>
+                0
+              </Typography>
+            </div>
+          </div>
+        ))}
+
+        {showResults && filteredBookings.length === 0 && (
           <Box sx={{ mt: 4 }}>
             <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
               Search Results:
             </Typography>
-            {/* Render search results here */}
-            {/* You can replace the following placeholder text with actual search results */}
             <img
               src="https://www.beevidhya.com/assets/images/no_result.gif"
               alt="No results found"
