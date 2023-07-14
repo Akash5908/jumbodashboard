@@ -105,7 +105,7 @@ const Bookbytime = () => {
         </div>
         <form>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={6} xl={4} lg={6} style={{ backgroundColor: "#F0F0F0", borderRadius: "3px", padding: "20px" }}>
+            <Grid item xs={12} sm={12} md={6} xl={4} lg={6  }  style={{ backgroundColor: "#F0F0F0", borderRadius: "3px", padding: "20px" }}>
               <Typography variant="subtitle1">Rate</Typography>
               <TextField value={rate} onChange={(e) => setRate(e.target.value)} fullWidth variant="outlined" size="small" style={{ backgroundColor: "white" }} />
               <Typography variant="h3" style={{ marginTop: '20px', marginBottom: '20px' }}>Participants</Typography>
@@ -212,15 +212,15 @@ const Bookbytime = () => {
     <>
   <Typography variant="h3">Customer Invoice</Typography>
   <Paper elevation={3} style={{ padding: "20px", borderRadius: "3px", height: "100%" }}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '10px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
                   <Grid md={12} lg={12} sm={1} xs={1}>
 
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-        <Typography variant="h6" style={{ marginRight: '20px', marginLeft: "3vw", fontWeight: "400" }}>Quantity</Typography>
-        <Typography variant="h6" style={{ marginRight: '20px', marginLeft: "1vw", fontWeight: "400" }}>Unit price</Typography>
-        <Typography variant="h6" style={{ marginRight: '20px', marginLeft: "1vw", fontWeight: "400" }}>Discount</Typography>
-        <Typography variant="h6" style={{ marginRight: '20px', marginLeft: "1vw", fontWeight: "400" }}>Tax</Typography>
-        <Typography variant="h6" style={{ marginRight: '20px', marginLeft: "1vw", fontWeight: "400" }}>Amount</Typography>
+      <div style={{ display: 'flex',justifyContent:"center", marginBottom: '10px' ,marginLeft:"1vw"}}>
+        <Typography variant="h6" style={{ marginRight: '1vw', fontWeight: "400" }}>Quantity</Typography>
+        <Typography variant="h6" style={{ marginRight: '1vw',  fontWeight: "400" }}>Unit price</Typography>
+        <Typography variant="h6" style={{ marginRight: '1vw',  fontWeight: "400" }}>Discount</Typography>
+        <Typography variant="h6" style={{ marginRight: '1vw', fontWeight: "400" }}>Tax</Typography>
+        <Typography variant="h6" style={{ marginRight: '1vw',  fontWeight: "400" }}>Amount</Typography>
       </div>
                   </Grid>
      
@@ -228,13 +228,13 @@ const Bookbytime = () => {
         <Typography variant="subtitle1" style={{ fontWeight: "500", marginTop: "0px", marginBottom: "0px" , marginLeft:"2vw", marginRight:"2vw"}}>Mehrauli Walking Tour - Sun, July 09 2023 - 09:00</Typography>
       </div>
       
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-        <Typography variant="h6" style={{ marginRight: '20px' ,marginLeft: "0vw" }}>Adults</Typography>
-        <Typography variant="h6" style={{ marginRight: '3vw', marginLeft: "0.6vw" }}>{adults}</Typography>
-        <Typography variant="h6" style={{ marginLeft: 'auto' , marginRight: '2.5vw'}}>₹{unitPrice.toFixed(2)}</Typography>
-        <Typography variant="h6" style={{ marginRight: '2vw' }}>{discountPercent}%</Typography>
-        <Typography variant="h6" style={{ marginLeft: 'auto', marginRight: '20px' }}>₹{taxAmount.toFixed(2)}</Typography>
-        <Typography variant="h6" style={{ marginLeft: 'auto' }}>₹{amountDue.toFixed(2)}</Typography>
+      <div style={{ display: 'flex', justifyContent:"center", marginBottom: '10px' , marginLeft:"1vw"}}>
+        {/* <Typography variant="h6" style={{ marginRight: '1vw' }}>Adults</Typography> */}
+        <Typography variant="h6" style={{ marginRight: '3vw',marginLeft:"2vw"  }}>{adults}</Typography>
+        <Typography variant="h6" style={{  marginRight: '2vw'}}>₹{unitPrice.toFixed(2)}</Typography>
+        <Typography variant="h6" style={{ marginRight: '1vw' }}>{discountPercent}%</Typography>
+        <Typography variant="h6" style={{  marginRight: '1vw' }}>₹{taxAmount.toFixed(2)}</Typography>
+        <Typography variant="h6" style={{ marginRight: '1vw' }}>₹{amountDue.toFixed(2)}</Typography>
       </div>
     </div>
 <hr style={{ fontSize:"100"}} />
