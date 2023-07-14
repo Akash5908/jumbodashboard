@@ -185,7 +185,7 @@ const Dailydepartures = () => {
                 value={tour}
                 onChange={(e) => setTour(e.target.value)}
                 size="small"
-                style={{paddingBottom:"0.8vw"}}
+                style={{padding:"0.5vw"}}
               >
                 {tours.map((tour) => (
                   <MenuItem key={tour.code} value={tour.code}>
