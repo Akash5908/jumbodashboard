@@ -339,10 +339,10 @@ const Dailydepartures = () => {
               </Typography>
               <Typography variant="subtitle1" style={{ color: 'grey', marginRight: '0.6vw' }}>
       {arrivedParticipants[booking.code] || 0}
-    </Typography>
-              <div onClick={() => handleArrivedParticipantsIncrease(booking.code)} style={{cursor:'pointer',fontWeight:"600", fontSize: '1.6vw',marginTop:"-0.5vh"}}>
+              <span onClick={() => handleArrivedParticipantsIncrease(booking.code)} style={{cursor:'pointer',color:"#7352C7",fontWeight:"800",marginLeft:"10px"}}>
       +
-    </div>
+    </span>
+    </Typography>
             </div>
           </div>
         ))}
