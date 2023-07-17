@@ -62,7 +62,7 @@ const IOSSwitch = styled((props) => (
   },
 }))
 
-export default function ToggleStatus({ date }) {
+export default function ToggleStatus({ date, searchText }) {
   const formattedDate = date.format("DD MM YYYY")
   const [data, setData] = useState([])
   const [checkRows, setCheckedRows] = useState([])
@@ -89,10 +89,10 @@ export default function ToggleStatus({ date }) {
 
   const handleChange = (event, id) => {
     if (!event.target.checked) {
-      const newValue = initialRows.filter((obj) => obj.id == id)
+      const newValue = initialRows.filter((obj) => !(obj.id !== id))
       setCheckedRows([...checkRows, newValue[0].tour])
     } else {
-      const newValue = initialRows.filter((obj) => obj.id == id)
+      const newValue = initialRows.filter((obj) => !(obj.id !== id))
       setCheckedRows(checkRows.filter((tour) => tour !== newValue[0].tour))
     }
 
@@ -104,12 +104,12 @@ export default function ToggleStatus({ date }) {
       name: checkRows,
     }))
   }
-
+  console.log(value, "value")
   const buttonClick = (e) => {
     e.preventDefault()
     console.log(value, "setvalue")
 
-    const existingIndex = noTour.findIndex((tour) => tour.id == value.id)
+    const existingIndex = noTour.findIndex((tour) => tour.id === value.id)
 
     if (existingIndex !== -1) {
       const updatedNoTour = [...noTour]
@@ -144,25 +144,30 @@ export default function ToggleStatus({ date }) {
     }, 700)
   }
 
-  useEffect(() => {
-    noTour.map((tour) => {
-      if (tour.name.length === 0) {
-        axios
-          .delete(`http://localhost:3000/notour/${formattedDate}`)
-          .then((res) => {
-            console.log(res.data)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      }
-    })
-  }, [])
+  // useEffect(() => {
+  //   noTour.map((tour) => {
+  //     if (tour.name.length === 0) {
+  //       axios
+  //         .delete(`http://localhost:3000/notour/${formattedDate}`)
+  //         .then((res) => {
+  //           console.log(res.data)
+  //         })
+  //         .catch((err) => {
+  //           console.log(err)
+  //         })
+  //     }
+  //   })
+  // }, [])
 
-  const initialRows = data.map((tour, index) => ({
-    id: tour.id,
-    tour: tour.name,
-  }))
+  const initialRows = data
+    .filter((tour) => {
+      if (searchText.trim() === "") return true
+      return tour.name.toLowerCase().includes(searchText.toLowerCase())
+    })
+    .map((tour, index) => ({
+      id: tour.id,
+      tour: tour.name,
+    }))
 
   const isTourChecked = (tourName) => {
     const existingTour = noTour.find((item) => item.id === formattedDate)
@@ -177,7 +182,7 @@ export default function ToggleStatus({ date }) {
 
   useEffect(() => {
     setRows(initialRows)
-  }, [data])
+  }, [data, searchText])
 
   const columns = [
     {

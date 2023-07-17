@@ -39,7 +39,12 @@ const SearchBar = () => {
     <div style={{ padding: "0" }}>
       <div
         id='row'
-        style={{ display: "flex", justifyContent: "space-between" }}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          // flexDirection: "column",
+          // alignItems: "center",
+        }}
       >
         <Box
           component='form'
@@ -48,20 +53,15 @@ const SearchBar = () => {
             flexDirection: "column",
             alignItems: "center",
             p: 2,
-            //   py: 4,
-            //   pb: 1,
-          }}
-          noValidate
-          autoComplete='off'
-          style={{
             width: "100%",
             fontSize: "16px",
-
-            marginRight: "16px",
+            marginBottom: "16px",
             backgroundColor: "white",
             borderRadius: "10px",
             boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
           }}
+          noValidate
+          autoComplete='off'
         >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={3} lg={10}>
@@ -83,7 +83,11 @@ const SearchBar = () => {
             </h2>
           </div>
           {showToggleStatus ? (
-            <ToggleStatus date={dateSelected} onStatusChange={setStatus} />
+            <ToggleStatus
+              date={dateSelected}
+              onStatusChange={setStatus}
+              searchText={text}
+            />
           ) : (
             <h1>Loading</h1>
           )}

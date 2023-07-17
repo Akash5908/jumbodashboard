@@ -49,38 +49,8 @@ const OverView = () => {
               onChange={(e) => setText(e.target.value)}
             />
           </Grid>
-          {/* <div
-            style={{
-              display: "inline-block",
-              width: "1px",
-              height: "100%",
-              marginRight: "16px",
-              background: "rgb(221, 221, 221)",
-              width: "2px",
-            }}
-          > */}
-          <Grid item xs={12} sm={12} md={3}>
-            {/* <InputLabel id='demo-select-small-label'>Status</InputLabel> */}
-            {/* <span style={{ boxSizing: "border-box" }}>
-              <Select
-                labelId='demo-select-small-label'
-                id='demo-select-small'
-                style={{ marginTop: "8px", marginBottom: "16px" }}
-                value={status}
-                label='Status'
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <MenuItem value='none'>
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value='Active' selected>
-                  Active
-                </MenuItem>
 
-                <MenuItem value='inActive'>InActive</MenuItem>
-              </Select>
-            </span> */}
-          </Grid>
+          <Grid item xs={12} sm={12} md={3}></Grid>
           {/* </div> */}
         </Grid>
         <TourTable text={text} status={status} />
