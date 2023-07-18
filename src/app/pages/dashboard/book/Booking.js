@@ -1,7 +1,8 @@
 import * as React from "react"
+import dayjs from "dayjs"
 import Box from "@mui/material/Box"
 import TextField from "@mui/material/TextField"
-import dayjs from "dayjs"
+import { useSelector } from 'react-redux';
 import { InputAdornment, OutlinedInput, Typography } from "@mui/material"
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
@@ -10,8 +11,10 @@ import { DesktopDateRangePicker } from "@mui/x-date-pickers-pro/DesktopDateRange
 import PersonIcon from "@mui/icons-material/Person"
 import Button from "@mui/material/Button"
 import { Grid } from "@mui/material" // Import Grid from Material-UIcontainer spacing={2}
+import BookingCard from "../extension/card"
 
 const Booking = () => {
+  const tourdata = useSelector((state) => state.changeTheTour);
   const [text, setText] = React.useState("")
   const [selectedDateRange, setSelectedDateRange] = React.useState([null, null])
   const [number, setNumber] = React.useState(1)
@@ -163,25 +166,29 @@ const Booking = () => {
             <Typography variant='body1' sx={{ fontWeight: "bold" }}>
               Search Results:
             </Typography>
-            {/* Render search results here */}
-            {/* You can replace the following placeholder text with actual search results */}
-            <img
-              src='https://www.beevidhya.com/assets/images/no_result.gif'
-              alt='No results found'
-            />
-            <Typography
-              variant='body2'
-              sx={{
-                mt: 2,
-                width: "100%",
-                fontSize: "18px",
-                fontWeight: "bold",
-                textAlign: "center",
-                opacity: 0.5,
-              }}
-            >
-              No results found.
-            </Typography>
+            {tourdata.length > 0 ? (
+              <BookingCard data={tourdata} />
+            ) : (
+              <React.Fragment>
+                <img
+                  src='https://www.beevidhya.com/assets/images/no_result.gif'
+                  alt='No results found'
+                />
+                <Typography
+                  variant='body2'
+                  sx={{
+                    mt: 2,
+                    width: "100%",
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    opacity: 0.5,
+                  }}
+                >
+                  No results found.
+                </Typography>
+              </React.Fragment>
+            )}
           </Box>
         )}
       </Box>

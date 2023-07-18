@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit"
 import AddTourReducer from "./editTour"
-const Store = configureStore({
+
+
+
+const Store1 = configureStore({
   reducer: {
     addTour: AddTourReducer,
   },
 })
 
-export default Store
+export default Store1
