@@ -18,8 +18,8 @@ const BookingCard = ({ data }) => {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        gap: '26px',
-        maxWidth: '1280px',
+        gap: '9px',
+        maxWidth: '85vw',
         margin: '0 auto',
       }}
     >

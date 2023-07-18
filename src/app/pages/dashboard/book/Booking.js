@@ -163,9 +163,9 @@ const Booking = () => {
 
         {showResults && (
           <Box sx={{ mt: 4 }}>
-            <Typography variant='body1' sx={{ fontWeight: "bold" }}>
+            {/* <Typography variant='body1' sx={{ fontWeight: "bold" }}>
               Search Results:
-            </Typography>
+            </Typography> */}
             {tourdata.length > 0 ? (
               <BookingCard data={tourdata} />
             ) : (
