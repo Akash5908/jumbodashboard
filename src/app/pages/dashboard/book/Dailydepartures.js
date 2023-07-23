@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import dayjs from 'dayjs';
+import { Link } from 'react-router-dom';
 
 import {
   InputAdornment,
@@ -132,7 +133,7 @@ const Dailydepartures = () => {
   return (
     <div style={{ padding: '0' }}>
       <div style={{ marginBottom: '20px', marginTop: '-30px' }}>
-        <a href="#">Home</a> {'>'} <span>Bookings</span>
+      <Link to="/" style={{ textDecoration: 'none', background: '#f6f6f6', marginBottom: '8vh' }}>Home</Link> {'>'} <span>Bookings</span>
       </div>
       <Typography variant="h1" align="start" gutterBottom>
         Daily Departures

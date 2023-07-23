@@ -64,7 +64,7 @@ const CalendarCulture = () => {
   return (
     <React.Fragment>
          <div  style={{marginBottom: '20px',marginTop:"-30px"}}>
-        <a href="#">Home</a> {'>'} <span>Bookings</span>
+         <Link to="/" style={{ textDecoration: 'none', background: '#f6f6f6', marginBottom: '8vh' }}>Home</Link> {'>'} <span>Bookings</span>
       </div>
       <Typography variant="h1" align="start" gutterBottom>
        Select experience & time

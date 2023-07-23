@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CalendarWrapper from "./CalendarWrapper";
 import {useTranslation} from "react-i18next";
-
+import { Link } from 'react-router-dom';
 const {events} = calendarData;
 const today = new Date();
 const currentYear = today.getFullYear();
@@ -20,7 +20,7 @@ const CalendarSelectable = () => {
     return (
         <React.Fragment>
                    <div style={{marginBottom: '20px',marginTop:"-30px"}}>
-        <a href="#">Home</a> {'>'} <span>Bookings</span> {'>'} <span>Booking Calendar</span>
+                   <Link to="/" style={{ textDecoration: 'none', background: '#f6f6f6', marginBottom: '8vh' }}>Home</Link> {'>'} <span>Bookings</span> {'>'} <span>Booking Calendar</span>
       </div>
             <Typography variant={"h1"} mb={3}>Booking Calendar</Typography>
             <Card>

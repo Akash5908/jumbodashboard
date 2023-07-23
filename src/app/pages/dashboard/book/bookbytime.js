@@ -82,7 +82,7 @@ const Bookbytime = () => {
   return (
     <div>
       <div style={{ marginBottom: '20px' }}>
-        <a href="#">Home</a> {'>'} <span>Bookings</span> {'>'}{' '}
+      <Link to="/" style={{ textDecoration: 'none', background: '#f6f6f6', marginBottom: '8vh' }}>Home</Link> {'>'} <span>Bookings</span> {'>'}{' '}
         <Link to="/bookingdesk" style={{ color: 'blue' }}>
           Select experience & time
         </Link>

@@ -27,7 +27,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { StaticDateRangePicker } from '@mui/x-date-pickers-pro/StaticDateRangePicker';
 import { pickersLayoutClasses } from '@mui/x-date-pickers/PickersLayout';
 
-
+import { Link } from 'react-router-dom';
 
 const Salesfeed = () => {
   const [text, setText] = React.useState('');
@@ -120,7 +120,7 @@ const Salesfeed = () => {
   return (
     <div style={{ padding: '0' }}>
       <div  style={{marginBottom: '20px',marginTop:"-30px"}}>
-        <a href="#">Home</a> {'>'} <span>Bookings</span>
+      <Link to="/" style={{ textDecoration: 'none', background: '#f6f6f6', marginBottom: '8vh' }}>Home</Link>{'>'} <span>Bookings</span>
       </div>
       <Typography variant="h1" align="start" gutterBottom>
         Sales Feed
