@@ -1,5 +1,5 @@
 import * as React from "react"
-import dayjs from "dayjs"
+// import dayjs from "dayjs"
 import Box from "@mui/material/Box"
 import TextField from "@mui/material/TextField"
 import { useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ import PersonIcon from "@mui/icons-material/Person"
 import Button from "@mui/material/Button"
 import { Grid } from "@mui/material" // Import Grid from Material-UIcontainer spacing={2}
 import BookingCard from "../extension/card"
-
+import { Link } from "react-router-dom";
 const Booking = () => {
   const tourdata = useSelector((state) => state.changeTheTour);
   const [text, setText] = React.useState("")
@@ -145,6 +145,7 @@ const Booking = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={5} md={2}>
+            <Link to='/bookingdesk'>
             <Button
               variant='contained'
               style={{
@@ -157,7 +158,8 @@ const Booking = () => {
               }}
             >
               Quick Book
-            </Button>
+              </Button>
+              </Link>
           </Grid>
         </Grid>
 
