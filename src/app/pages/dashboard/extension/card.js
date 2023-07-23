@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+
+import { useNavigate, Link } from 'react-router-dom'; // Use useNavigate instead of useHistory
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
+import Createbooking from '../book/Createbooking';
 
 const BookingCard = ({ data }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [isCreateBookingOpen, setCreateBookingOpen] = useState(false);
+  const [selectedData, setSelectedData] = useState(null);
+  const createBookingRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isCreateBookingOpen && createBookingRef.current) {
+      createBookingRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [isCreateBookingOpen]);
 
   const handleCardHover = (index) => {
     setHoveredIndex(index);
+    if (index !== null) {
+      setSelectedData(data[index]);
+    }
+  };
+
+  const handleBookNowClick = (item) => {
+    setCreateBookingOpen(true);
+    setSelectedData(item);
+    navigate('/createbooking/booknow', { state: { selectedData: item } });
   };
 
   return (
@@ -18,8 +40,8 @@ const BookingCard = ({ data }) => {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        gap: '9px',
-        maxWidth: '85vw',
+        gap: '26px',
+        maxWidth: '1280px',
         margin: '0 auto',
       }}
     >
@@ -72,18 +94,21 @@ const BookingCard = ({ data }) => {
                   transition: 'background-color 0.9s ease',
                 }}
               >
-                <Button
-                  size="small"
-                  color="primary"
-                  style={{
-                    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.3)',
-                    color: 'whitesmoke',
-                    backgroundColor: 'blue',
-                    transition: 'background-color 0.9s ease',
-                  }}
-                >
-                  Book Now
-                </Button>
+                {/* <Link to="/createbooking/booknow"> */}
+                  <Button
+                    size="small"
+                    color="primary"
+                    style={{
+                      boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.3)',
+                      color: 'whitesmoke',
+                      backgroundColor: 'blue',
+                      transition: 'background-color 0.9s ease',
+                    }}
+                    onClick={() => handleBookNowClick(item)}
+                  >
+                    Book Now
+                  </Button>
+                {/* </Link> */}
               </CardActions>
             )}
             <CardContent>

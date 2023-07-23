@@ -161,7 +161,7 @@ const Booking = () => {
           </Grid>
         </Grid>
 
-        {showResults && (
+        {/* {showResults && ( */}
           <Box sx={{ mt: 4 }}>
             {/* <Typography variant='body1' sx={{ fontWeight: "bold" }}>
               Search Results:
@@ -185,12 +185,12 @@ const Booking = () => {
                     opacity: 0.5,
                   }}
                 >
-                  No results found.
+              
                 </Typography>
               </React.Fragment>
             )}
           </Box>
-        )}
+        {/* )} */}
       </Box>
     </div>
   )
