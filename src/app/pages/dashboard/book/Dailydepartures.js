@@ -20,16 +20,16 @@ import {
   Popover,
 } from '@mui/material';
 
-import {
-  DemoContainer,
-  DemoItem,
-} from '@mui/x-date-pickers/internals/demo';
+// import {
+//   DemoContainer,
+//   DemoItem,
+// } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDateRangePicker } from '@mui/x-date-pickers-pro/DesktopDateRangePicker';
-import PersonIcon from '@mui/icons-material/Person';
-import { StaticDateRangePicker } from '@mui/lab';
-import { pickersLayoutClasses } from '@mui/x-date-pickers/PickersLayout';
+// import PersonIcon from '@mui/icons-material/Person';
+// import { StaticDateRangePicker } from '@mui/lab';
+// import { pickersLayoutClasses } from '@mui/x-date-pickers/PickersLayout';
 
 const tours = [
   { code: 'DT', name: 'Delhi Tours' },
