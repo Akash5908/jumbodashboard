@@ -4,7 +4,7 @@ import { Typography, Grid, TextField, Checkbox, MenuItem, Select, FormControlLab
 import { Help } from '@material-ui/icons';
 import Button from "@mui/material/Button"
 import Paper from '@mui/material/Paper';
-
+import { useLocation } from 'react-router-dom';
 // A list of currencies (you can modify this list or fetch data from an API)
 const currencies = [
   { code: 'AED', name: 'United Arab Emirates Dirham' },
@@ -57,12 +57,14 @@ const Bookbytime = () => {
   const [bookedCount, setBookedCount] = useState(0);
   const [participantsCount, setParticipantsCount] = useState(0);
   const [availableCount, setAvailableCount] = useState(50);
+  const location = useLocation();
+  const { culture, selectedDate, selectedTime } = location.state;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
   };
-
+console.log(culture,selectedDate)
   const calculateInvoice = () => {
     const unitPrice = 1500; // Assuming unit price of the tour is ₹1500
     const discountPercent = 0; // Assuming no discount
@@ -97,8 +99,8 @@ const Bookbytime = () => {
         </div>
       </div>
       <div style={{ backgroundColor: '#FCFCFC', padding: '20px', paddingLeft: "2.5vw", borderRadius: '10px', height: "100%" }}>
+          <h1 style={{ paddingRight: "10vw", marginLeft: "-15px",marginBottom:"1vh" ,fontSize:"2vw"}}>{culture}</h1>
         <div style={{ marginBottom: "20px" }}>
-          <Link style={{ fontSize: '20px', textDecoration: 'none', paddingRight: "10vw", marginLeft: "-15px" }}>Delhi tour</Link>
           <Typography variant style={{ fontSize: '15px', textDecoration: 'none', paddingRight: "0vw", marginLeft: "40vw" }}>
             Booked: {bookedCount}, Participants: {participantsCount}, Available: {availableCount}
           </Typography>

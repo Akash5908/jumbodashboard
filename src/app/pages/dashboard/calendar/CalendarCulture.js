@@ -24,6 +24,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-calendar/dist/Calendar.css';
 import { Grid } from '@mui/material'; // Import Grid from Material-UI
 import { Link, useNavigate } from 'react-router-dom';
+
+
 const { events } = calendarData;
 const today = new Date();
 const currentYear = today.getFullYear();
@@ -32,19 +34,30 @@ const localizer = momentLocalizer(moment);
 
 const CalendarCulture = () => {
   const { t } = useTranslation();
-  const [culture, setCulture] = useState('dt');
+  const [culture, setCulture] = useState(' ');
   const [value, onChange] = useState(new Date());
   const [isChecked, setIsChecked] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const selectedCulture = cultures.find((culture) => culture.id === culture);
     // Handle form submission logic here
-      
+    navigate('/bookingdesk/activity', {
+      state: {
+        culture: culture,
+      selectedDate: value,
+      selectedTime: selectedTime,
+      }
+    })
     // Navigate to the '/bookbytime' route
     // navigate('/Bookings/Desk'); 
     };
-  
+    const handleChange = (e) => {
+      const selectedCultureId = e.target.value;
+      setCulture(selectedCultureId);
+    };
+    
 
   const [selectedTime, setSelectedTime] = useState('');
 
@@ -53,7 +66,10 @@ const CalendarCulture = () => {
     setIsChecked(e.target.checked);
     setSelectedTime(selectedValue);
   };
-    
+    // console.log(selectedTime);
+    // console.log(isChecked);
+    // console.log(value);
+    // console.log(culture);
   const timeOptions = [
     { label: '5:00 AM', value: '5:00 AM' },
     { label: '6:00 AM', value: '6:00 AM' },
@@ -73,9 +89,9 @@ const CalendarCulture = () => {
       <div style={{ display: 'flex' }}>
         <div style={{ flex: 1 }}>
           <FormControl fullWidth sx={{ mb: 2 }}>
-            <Select size={"small"} onChange={(e) => setCulture(e.target.value)} value={culture}>
+            <Select size={"small"} onChange={handleChange}  value={culture}>
               {cultures.map((item, index) => (
-                <MenuItem value={item.id} key={`${item.id}${index}`}>
+                <MenuItem value={item.title} key={`${item.id}${index}`}>
                   {item.title}
                 </MenuItem>
               ))}
@@ -110,10 +126,10 @@ const CalendarCulture = () => {
                 {option.label}
               </label>
             ))}
-                      <Link to="/bookingdesk/activity">
-                              <Button type="submit" variant="contained"  style={{ marginTop: '20px'}}>Continue</Button>
+                     
+                              <Button type="submit" variant="contained" onClick={handleSubmit} style={{ marginTop: '20px'}}>Continue</Button>
                              
-            </Link>
+           
                               </Grid>
             </Grid>
           </div>
