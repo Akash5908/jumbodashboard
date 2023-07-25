@@ -13,14 +13,14 @@ const TourAdd = () => {
   useEffect(() => {
     dispatch(TourAddAction.tourAdd(true))
   }, [])
-  //   useEffect(() => {
-  //     axios
-  //       .get("http://localhost:3000/tourList")
-  //       .then((res) => {
-  //         setData(res.data)
-  //       })
-  //       .catch((err) => console.log(err))
-  //   }, [])
+    // useEffect(() => {
+    //   axios
+    //     .get("https://jumbo2-0.vercel.app/tourList")
+    //     .then((res) => {
+    //       setData(res.data)
+    //     })
+    //     .catch((err) => console.log(err))
+    // }, [])
 
   const id = data.length + 1
   const [tour, setTour] = useState({

@@ -6,6 +6,17 @@
     height: 100%;
 }
 
+/* styles.css */
+.selectedButton {
+    background-color: #2196f3 !important;
+  }
+  
+  .contentContainer {
+    background-color: #f6f6f6;
+    padding: 1rem;
+  }
+  
+
 .loader {
     margin: auto;
     width: 50px;

@@ -71,14 +71,14 @@ export default function ToggleStatus({ date }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/tourList")
+      .get("https://jumbo2-0.vercel.app/tourList")
       .then((res) => setData(res.data))
       .catch((err) => console.log(err))
   }, [])
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/notour")
+      .get("https://jumbo2-0.vercel.app/notour")
       .then((res) => setNoTour(res.data))
       .catch((err) => console.log(err))
   }, [])
@@ -116,7 +116,7 @@ export default function ToggleStatus({ date }) {
       updatedNoTour[existingIndex].name = checkRows
       axios
         .put(
-          `http://localhost:3000/notour/${formattedDate}`,
+          `https://jumbo2-0.vercel.app/notour/${formattedDate}`,
           updatedNoTour[existingIndex]
         )
         .then((res) => {
@@ -128,7 +128,7 @@ export default function ToggleStatus({ date }) {
     } else {
       if (value.name.length > 0) {
         axios
-          .post("http://localhost:3000/notour", value)
+          .post("https://jumbo2-0.vercel.app/notour", value)
           .then((res) => {
             console.log(res.data)
             // Handle success if needed
@@ -148,7 +148,7 @@ export default function ToggleStatus({ date }) {
     noTour.map((tour) => {
       if (tour.name.length === 0) {
         axios
-          .delete(`http://localhost:3000/notour/${formattedDate}`)
+          .delete(`https://jumbo2-0.vercel.app/notour${formattedDate}`)
           .then((res) => {
             console.log(res.data)
           })

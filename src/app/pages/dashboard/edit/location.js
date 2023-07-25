@@ -17,7 +17,7 @@ const Location = () => {
   const { id } = useParams()
   useEffect(() => {
     axios
-      .get("http://localhost:3000/tourList/" + id)
+      .get("https://jumbo2-0.vercel.app/tourList/" + id)
       .then((res) => {
         setValue({ ...res.data, location: res.data.location })
       })
@@ -29,7 +29,7 @@ const Location = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     axios
-      .put("http://localhost:3000/tourList/" + id, value)
+      .put("https://jumbo2-0.vercel.app/tourList/" + id, value)
       .then((res) => {
         console.log(res)
       })
