@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton, Typography, styled } from '@mui/material';
+import { Box, Button, IconButton, Typography, styled } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -289,7 +289,14 @@ const Createbooking = () => {
                 
                     </>
                   )}
-                        </div>
+                </div>
+                <Button
+                  variant="contained"
+                // onClick={handleSubmit}
+                  style={{ marginTop:"1vh" }}
+                  >
+                Book
+              </Button>
               </div>
            
                
