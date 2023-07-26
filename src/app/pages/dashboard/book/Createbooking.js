@@ -236,7 +236,7 @@ const Createbooking = () => {
               <div style={{marginLeft:"2vw"  }}>
                 <h1>People</h1>
                 {/* Select to choose the number of adults */}
-                <div style={{   border: "0.2vw solid grey" , padding:"1vh", height:'20vh'}}>
+                <div style={{   border: "0.2vw solid grey" , padding:"1vh", height:'100%'}}>
 
                   {getSelectedTour(tour)?.maxPassengers > 0 && (
                     <>
@@ -276,19 +276,22 @@ const Createbooking = () => {
                         </label>
                   </>
                   )}
+                
                   {getSelectedTour(tour)?.maxPassengers > 0 && (
                     <>
-                      <div style={{ display: "block", marginTop: "4vh" }}>
-                    
-               
+                      <div style={{ display: "block" }}>
+                      <span  style={{display:"block",fontWeight:"500"}}>Price: Rs{getSelectedTour(tour).price}</span> 
+                  
                         <span style={{ paddingLeft: "0.2vw", fontSize: "0.85rem", backgroundColor: "#d9534f", paddingRight: "0.2vw", width: "6.5vw", borderRadius: "0.5vw", color: "white" }}>minPassengers: {getSelectedTour(tour)?.minPassengers}</span>
                         <span style={{ marginLeft: "1vh", paddingLeft: "0.2vw", paddingRight: "0.2vw", fontSize: "0.85rem", backgroundColor: "#5bc0de", width: "6.5vw", borderRadius: "0.5vw", color: "white" }}>maxPassengers: {getSelectedTour(tour)?.maxPassengers}</span>
+                    
                       </div>
                 
                     </>
                   )}
                         </div>
-                        </div>
+              </div>
+           
                
             </Grid>
           </Grid>
