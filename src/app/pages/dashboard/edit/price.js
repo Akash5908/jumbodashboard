@@ -17,7 +17,7 @@ const Price = () => {
 
   useEffect(() => {
     axios
-      .get("https://jumbo2-0.vercel.app/tourList/" + id)
+      .get("http://localhost:3000/tourList/" + id)
       .then((res) => {
         setPrice({ ...res.data, price: res.data.price })
       })
@@ -32,7 +32,7 @@ const Price = () => {
 
   const handleClick = (e) => {
     e.preventDefault()
-    axios.put("https://jumbo2-0.vercel.app/tourList/" + id, Price)
+    axios.put("http://localhost:3000/tourList/" + id, Price)
   }
   return (
     <>

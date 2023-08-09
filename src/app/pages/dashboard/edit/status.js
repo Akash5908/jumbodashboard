@@ -28,7 +28,7 @@ const Status = () => {
 
   React.useEffect(() => {
     axios
-      .get("https://jumbo2-0.vercel.app/tourList/" + id)
+      .get("http://localhost:3000/tourList/" + id)
       .then((res) => {
         setValues({ ...res.data, status: res.data.status })
       })
@@ -41,7 +41,7 @@ const Status = () => {
   const handleChange = (e) => {
     e.preventDefault()
     axios
-      .put("https://jumbo2-0.vercel.app/tourList/" + id, values)
+      .put("http://localhost:3000/tourList/" + id, values)
       .then((res) => {
         console.log(values, "Status Updated")
       })
@@ -51,7 +51,7 @@ const Status = () => {
   }
 
   const dateSelect = () => {
-    axios.post("https://jumbo2-0.vercel.app/notour", noTourDate)
+    axios.post("http://localhost:3000/notour", noTourDate)
   }
 
   //if the selected date is choosen then go idise the useeffect and

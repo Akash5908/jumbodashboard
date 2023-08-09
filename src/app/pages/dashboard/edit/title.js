@@ -43,7 +43,7 @@ const Title = (props) => {
   useEffect(() => {
     if (!addTour) {
       axios
-        .get("https://jumbo2-0.vercel.app/tourList/" + id)
+        .get("http://localhost:3000/tourList/" + id)
         .then((res) => {
           setValues({ ...res.data, name: res.data.name })
         })
@@ -56,7 +56,7 @@ const Title = (props) => {
 
     if (addTour) {
       axios
-        .post("https://jumbo2-0.vercel.app/tourList", values)
+        .post("http://localhost:3000/tourList", values)
         .then((res) => {
           navigate("/overview")
           dispatch(TourAddAction.addTour(false))
@@ -64,7 +64,7 @@ const Title = (props) => {
         .catch((err) => console.log(err))
     } else {
       axios
-        .put("https://jumbo2-0.vercel.app/tourList/" + id, values)
+        .put("http://localhost:3000/tourList/" + id, values)
         .then((res) => console.log(res))
         .catch((err) => console.log(err))
     }

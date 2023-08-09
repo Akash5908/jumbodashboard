@@ -17,7 +17,7 @@ const PriceInput = ({ onPriceChange }) => {
 
   React.useEffect(() => {
     axios
-      .get("https://jumbo2-0.vercel.app/tourList/" + id)
+      .get("http://localhost:3000/tourList/" + id)
       .then((res) => {
         setData({ ...res.data, price: res.data.price })
       })
@@ -33,7 +33,7 @@ const PriceInput = ({ onPriceChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     axios
-      .put("https://jumbo2-0.vercel.app/tourList/" + id, data)
+      .put("http://localhost:3000/tourList/" + id, data)
       .then((res) => console.log(res))
       .catch((err) => console.log(err))
   }

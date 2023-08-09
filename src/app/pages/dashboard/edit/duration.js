@@ -19,7 +19,7 @@ const Duration = () => {
   const { id } = useParams()
   React.useEffect(() => {
     axios
-      .get("https://jumbo2-0.vercel.app/tourList/" + id)
+      .get("http://localhost:3000/tourList/" + id)
       .then((res) => {
         setValues({ ...res.data, duration: res.data.duration })
       })
@@ -40,7 +40,7 @@ const Duration = () => {
   const handleChange = (e) => {
     e.preventDefault()
     axios
-      .put("https://jumbo2-0.vercel.app/tourList/" + id, values)
+      .put("http://localhost:3000/tourList/" + id, values)
       .then((res) => {
         console.log("Duration Updated")
       })
