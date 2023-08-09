@@ -16,6 +16,7 @@ import {
   Container,
   Popover
 } from '@mui/material';
+import { Card, CardContent } from '@material-ui/core';
 import {
   DemoContainer,
   DemoItem,
@@ -106,11 +107,39 @@ const Salesfeed = () => {
     },
     { label: 'Reset', getValue: () => [null, null] },
   ];
+  const data = [
+    { 
+      id: 1, 
+      title: 'Card 1', 
+      content: "10.04'23 03:17",
+      personName: 'John Doe',
+      paymentStatus: 'Confirmed',
+    },
+    { 
+      id: 2, 
+      title: 'Card 2', 
+      content: "01.10'20 17:31",
+      personName: 'Jane Smith',
+      paymentStatus: 'Pending',
+    },
+    // Add more data items as needed
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform search or display results
-    setShowResults(true);
+    const filteredData = data.filter((item) =>
+    bookingStatus.includes(item.title)
+  );
+
+  // Update the state to show results if data is present
+  setShowResults(true);
+  };
+
+  const handleClear = () => {
+    setText('');
+    setBookingStatus([]);
+    setShowResults(false);
   };
 
   const handleBookingStatusChange = (event) => {
@@ -237,6 +266,7 @@ const Salesfeed = () => {
           <Grid item xs={12} sm={5} md={1}>
             <Button
               variant="contained"
+              onClick={handleClear}
               style={{
                 padding: '8px',
                 border: '0.5px',
@@ -307,33 +337,74 @@ const Salesfeed = () => {
             </div>
           </Grid>
         </Grid>
+        <div style={{ padding: '0' }}>
+      {/* Existing code... */}
+      {showResults && (
+        <Box sx={{ mt: 4 }}>
+          <Typography variant="body1" sx={{ fontWeight: 'bold', marginLeft:"1vw" }}>
+            Search Results: 
+          </Typography>
+         
+          {data.length > 0 ? (
+  // Render cards if there is data
+  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+  {data.map((item) => (
+    <div key={item.id} style={{ width: '80vw',justifyContent:"center", margin: '20px', display: 'flex' }}>
+      <div style={{ flex: 1 }}>
+        <Card>
+          <CardContent>
+            <Typography variant="h5" component="div">
+              {item.title}
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              {item.content}
+            </Typography>
+            {/* Additional card content */}
+            <div style={{ marginLeft: '80%', position: 'relative', width:"6%" ,left:"15%",top:"-8vh", borderRadius: '10%', backgroundColor: item.paymentStatus === 'Confirmed' ? '#5bc0de' : '#d9534f' }}>
+  <Typography variant="h5" style={{ textAlign: 'center' , color:"white"}}>
+    {item.paymentStatus}
+  </Typography>
 
-        {showResults && (
-          <Box sx={{ mt: 4 }}>
-            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-              Search Results:
+</div>
+            {/* Add other card content as needed */}
+         
+        
+      <div style={{ marginLeft: '11%',position:"relative",top:"-81px" }}>   
+      
+            <Typography variant="body2">
+              Person Name: {item.personName}
             </Typography>
-            {/* Render search results here */}
-            {/* You can replace the following placeholder text with actual search results */}
-            <img
-              src="https://www.beevidhya.com/assets/images/no_result.gif"
-              alt="No results found"
-            />
-            <Typography
-              variant="body2"
-              sx={{
-                mt: 2,
-                width: '100%',
-                fontSize: '18px',
-                fontWeight: 'bold',
-                textAlign: 'center',
-                opacity: 0.5,
-              }}
-            >
-              No results found.
-            </Typography>
-          </Box>
-        )}
+            </div>
+            </CardContent>
+      </Card>
+      </div>
+    </div>
+  ))}
+</div>
+  
+) : (
+  // Display "No results found" if there is no data
+  <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+    <img
+      src="https://www.beevidhya.com/assets/images/no_result.gif"
+      alt="No results found"
+    />
+    <Typography
+      variant="body2"
+      sx={{
+        ml: 2,
+        fontSize: '18px',
+        fontWeight: 'bold',
+        opacity: 0.5,
+      }}
+    >
+      No results found.
+    </Typography>
+  </Box>
+)}
+        </Box>
+      )}
+    </div>
       </Box>
     </div>
   );
