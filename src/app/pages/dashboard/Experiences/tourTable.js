@@ -7,6 +7,7 @@ import AddIcon from "@mui/icons-material/Add"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import SaveIcon from "@mui/icons-material/Save"
+import { TourAddAction } from "app/reducToolkit/editTour"
 
 import CancelIcon from "@mui/icons-material/Close"
 import {
@@ -40,7 +41,8 @@ function EditToolbar(props) {
   )
 }
 
-export default function TourTable({ text, status }) {
+export default function TourTable({ text }) {
+  const dispatch = useDispatch()
   const [data, setData] = useState([])
   // console.log(status)
   useEffect(() => {
@@ -54,10 +56,6 @@ export default function TourTable({ text, status }) {
     .filter((tour) => {
       if (text.trim() === "") return true
       return tour.name.toLowerCase().includes(text.toLowerCase())
-    })
-    .filter((tour) => {
-      if (status.trim() === "") return true
-      return tour.status.toLowerCase().includes(status.toLowerCase())
     })
     .map((tour, index) => ({
       id: tour.id,
@@ -75,30 +73,6 @@ export default function TourTable({ text, status }) {
   useEffect(() => {
     setRows(initialRows)
   }, [data, text])
-
-  // const handleRowEditStop = (params, event) => {
-  //   if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-  //     event.defaultMuiPrevented = true
-  //   }
-  // }
-
-  // const handleEditClick = (id) => () => {
-  //   setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } })
-  // }
-
-  // const handleDeleteClick = (id) => () => {
-  //   setRows(rows.filter((row) => row.id !== id))
-  // }
-
-  // const processRowUpdate = (newRow) => {
-  //   const updatedRow = { ...newRow, isNew: false }
-  //   setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)))
-  //   return updatedRow
-  // }
-
-  // const handleRowModesModelChange = (newRowModesModel) => {
-  //   setRowModesModel(newRowModesModel)
-  // }
 
   const columns = [
     {
@@ -190,7 +164,7 @@ export default function TourTable({ text, status }) {
               icon={<EditIcon />}
               label='Edit'
               className='textPrimary'
-              // onClick={handleEditClick(id)}
+              onClick={() => dispatch(TourAddAction.tourAdd(false))}
               color='inherit'
             />
           </Link>,
