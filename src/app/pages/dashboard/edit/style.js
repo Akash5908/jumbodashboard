@@ -3,7 +3,7 @@ const Styles = {
     position: "relative",
     flex: "1 1 0%",
     padding: "40px 0 10 0",
-    overflowY: "scroll",
+    overflowY: "hidden",
     transform: "translate3d(0px, 0px, 0px)",
   },
   iAWZCU: {
@@ -121,6 +121,40 @@ const Styles = {
     borderLeftColor: "initial",
     borderTopRightRadius: "5px",
     borderBottomRightRadius: "5px",
+  },
+  tags: {
+    display: "flex",
+    marginTop: "1em",
+    fontSize: "1.2rem",
+    flexWrap: "wrap",
+    overflow: "hidden",
+  },
+  tag: {
+    position: "relative",
+    marginTop: ".5em",
+    marginRight: "1em",
+    backgroundColor: "#f2f2f2",
+    borderRadius: ".5em",
+    padding: "3px 8px",
+    display: "inline-block",
+    alignItems: "center",
+    paddingLeft: ".5em",
+  },
+  tadLabel: {
+    marginRight: "1em",
+  },
+
+  removeButton: {
+    display: "inline",
+    position: "absolute",
+    top: "-7px",
+    right: "-11px",
+    padding: "1px 5px",
+    backgroundColor: "rgb(255, 107, 107)",
+    color: "white",
+    border: "none",
+    borderRadius: "40%",
+    cursor: "pointer",
   },
 }
 

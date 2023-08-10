@@ -22,6 +22,7 @@ const TourAdd = () => {
     duration: "",
     description: "",
     image: "",
+    tags: [],
   })
   return (
     <>

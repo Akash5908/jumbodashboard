@@ -65,6 +65,8 @@ export default function TourTable({ text }) {
       status: tour.status,
       price: tour.price,
       role: tour.alt,
+      tag: tour.tag,
+      tagline: tour.tagline,
     }))
 
   const [rows, setRows] = React.useState([])
