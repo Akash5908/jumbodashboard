@@ -10,6 +10,9 @@ import Button from "@mui/material/Button"
 import SendIcon from "@mui/icons-material/Save"
 import Stack from "@mui/material/Stack"
 
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 const Duration = () => {
   const [data, setData] = React.useState([])
 
@@ -49,9 +52,15 @@ const Duration = () => {
     axios
       .put("http://localhost:3000/tourList/" + id, values)
       .then((res) => {
+        toast.success("Status Updated successfully!", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
         console.log("Duration Updated")
       })
       .catch((err) => {
+        toast.error("Error updating status!", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
         console.log(err)
       })
   }
@@ -158,6 +167,7 @@ const Duration = () => {
           </div>
         </div>
       </form>
+      <ToastContainer />
     </>
   )
 }

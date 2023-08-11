@@ -10,6 +10,9 @@ import axios from "axios"
 import { use } from "i18next"
 import { useParams } from "react-router-dom"
 
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 const Tagline = () => {
   const [value, setValue] = useState("")
 
@@ -24,9 +27,20 @@ const Tagline = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     axios
-      .put("http://localhost:3000/tourlist/" + id, { value })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
+      .put("http://localhost:3000/tourlist/" + id, value)
+      .then((res) => {
+        toast.success("Status updated successfully!", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+
+        console.log(res)
+      })
+      .catch((err) => {
+        toast.error("Error updating status!", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+        console.log(err)
+      })
   }
   return (
     <>
@@ -67,6 +81,7 @@ const Tagline = () => {
           </div>
         </div>
       </form>
+      <ToastContainer />
     </>
   )
 }

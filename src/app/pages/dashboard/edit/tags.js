@@ -8,6 +8,9 @@ import SendIcon from "@mui/icons-material/Save"
 import { useParams } from "react-router-dom"
 import axios from "axios"
 
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 const Tags = () => {
   const [inputTags, setInputTags] = useState({ tags: [] })
   const [newTags, setNewTags] = useState("")
@@ -43,8 +46,18 @@ const Tags = () => {
     e.preventDefault()
     axios
       .put(`http://localhost:3000/tourlist/` + id, inputTags)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
+      .then((res) => {
+        toast.success("Status updated successfully!", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+        console.log(res)
+      })
+      .catch((err) => {
+        toast.error("Error updating status!", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+        console.log(err)
+      })
   }
 
   return (
@@ -95,6 +108,7 @@ const Tags = () => {
           </div>
         </div>
       </form>
+      <ToastContainer />
     </>
   )
 }

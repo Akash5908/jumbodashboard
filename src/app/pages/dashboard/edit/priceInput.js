@@ -8,6 +8,9 @@ import Button from "@mui/material/Button"
 import SendIcon from "@mui/icons-material/Save"
 import Stack from "@mui/material/Stack"
 
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 const PriceInput = ({ onPriceChange }) => {
   const [data, setData] = React.useState({
     price: "",
@@ -34,8 +37,18 @@ const PriceInput = ({ onPriceChange }) => {
     e.preventDefault()
     axios
       .put("http://localhost:3000/tourList/" + id, data)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
+      .then((res) => {
+        toast.success("Status Updated successfully!", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+        console.log(res)
+      })
+      .catch((err) => {
+        toast.error("Error updating status!", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+        console.log(err)
+      })
   }
 
   return (
@@ -82,6 +95,7 @@ const PriceInput = ({ onPriceChange }) => {
           </div>
         </div>
       </form>
+      <ToastContainer />
     </>
   )
 }
