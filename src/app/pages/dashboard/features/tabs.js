@@ -13,6 +13,8 @@ import Photos from "../edit/photos"
 import Price from "../edit/price"
 import Description from "../edit/description"
 import Status from "../edit/status"
+import Tags from "../edit/tags"
+import Tagline from "../edit/tagline"
 
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"
@@ -31,12 +33,24 @@ const TabButton = () => {
         "Location",
         "Status",
         "Description",
+        "Tags",
+        "Tagline",
         "Photos",
       ]
 
   const tabComponents = addTour
     ? [Title]
-    : [Title, Price, Duration, Location, Status, Description, Photos]
+    : [
+        Title,
+        Price,
+        Duration,
+        Location,
+        Status,
+        Description,
+        Tags,
+        Tagline,
+        Photos,
+      ]
 
   const handleChange = (event, newValue) => {
     setValue(newValue)

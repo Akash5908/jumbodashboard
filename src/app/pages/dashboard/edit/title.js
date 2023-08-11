@@ -3,6 +3,7 @@ import Styles from "./style"
 import axios from "axios"
 import { useSelector } from "react-redux"
 import { TourAddAction } from "../../../reducToolkit/editTour"
+import Headline from "./headline"
 
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
@@ -12,6 +13,9 @@ import { useDispatch } from "react-redux"
 import Button from "@mui/material/Button"
 import SendIcon from "@mui/icons-material/Save"
 import Stack from "@mui/material/Stack"
+
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const Title = (props) => {
   const dispatch = useDispatch()
@@ -43,7 +47,7 @@ const Title = (props) => {
   useEffect(() => {
     if (!addTour) {
       axios
-        .get("https://jumbo2-0.vercel.app/tourList/" + id)
+        .get("http://localhost:3000/tourList/" + id)
         .then((res) => {
           setValues({ ...res.data, name: res.data.name })
         })
@@ -56,7 +60,7 @@ const Title = (props) => {
 
     if (addTour) {
       axios
-        .post("https://jumbo2-0.vercel.app/tourList", values)
+        .post("http://localhost:3000/tourList", values)
         .then((res) => {
           navigate("/overview")
           dispatch(TourAddAction.addTour(false))
@@ -64,82 +68,66 @@ const Title = (props) => {
         .catch((err) => console.log(err))
     } else {
       axios
-        .put("https://jumbo2-0.vercel.app/tourList/" + id, values)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
+        .put("http://localhost:3000/tourList/" + id, values)
+        .then((res) => {
+          toast.success("Status updated successfully!", {
+            position: toast.POSITION.TOP_RIGHT,
+          })
+          console.log(res)
+        })
+        .catch((err) => {
+          toast.error("Error updating status!", {
+            position: toast.POSITION.TOP_RIGHT,
+          })
+          console.log(err)
+        })
     }
   }
 
-  // useEffect(() => {
-  //   setTitle(data.name)
-  // }
-  // useEffect(() => {
-  //   dispatch(editTourAction.title(title))
-  // }
   return (
     <>
-      <div style={Styles.ehNvyi}>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <div style={Styles.iAWZCU}>
-              <h1 style={Styles.titleHeader}>
-                Give your experience a short but descriptive name
-              </h1>
-            </div>
-            <div
-              style={{
-                textAlign: "center",
-                marginBottom: "40px",
-                height: "10px",
-              }}
-            >
-              <p
-                style={{
-                  fontSize: "18px",
-                  color: "#999999",
-                  marginBottom: "0px",
-                }}
-              >
-                {" "}
-                We recommend using simple language, keep it less than 80
-                characters, mention what and where the experience is
-              </p>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                width: "100%",
-              }}
-            >
-              <input
-                type='text'
-                name=''
-                id=''
-                value={values.name}
-                style={Styles.inputTitle}
-                placeholder='Title...'
-                onChange={(e) => setValues({ ...values, name: e.target.value })}
-              />
-            </div>
-          </div>
+      <Headline
+        head={"Give your experience a short but descriptive name"}
+        subHead={
+          " We recommend using simple language, keep it less than 80 characters, mention what and where the experience is"
+        }
+      />
 
-          <div style={{ marginTop: "5%" }}>
-            <div style={{ margin: "1%" }}>
-              <Stack direction='row'>
-                <Button
-                  type='submit'
-                  variant='contained'
-                  endIcon={<SendIcon />}
-                  style={{ margin: "auto" }}
-                >
-                  {addTour ? "Add" : "Update"}
-                </Button>
-              </Stack>
-            </div>
+      <form onSubmit={handleSubmit}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <input
+            type='text'
+            name=''
+            id=''
+            value={values.name}
+            style={Styles.inputTitle}
+            placeholder='Title...'
+            onChange={(e) => setValues({ ...values, name: e.target.value })}
+          />
+        </div>
+
+        <div style={{ marginTop: "5%" }}>
+          <div style={{ margin: "1%" }}>
+            <Stack direction='row'>
+              <Button
+                type='submit'
+                variant='contained'
+                endIcon={<SendIcon />}
+                style={{ margin: "auto" }}
+              >
+                {addTour ? "Add" : "Update"}
+              </Button>
+            </Stack>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
+      <ToastContainer />
     </>
   )
 }

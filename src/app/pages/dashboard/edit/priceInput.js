@@ -8,6 +8,9 @@ import Button from "@mui/material/Button"
 import SendIcon from "@mui/icons-material/Save"
 import Stack from "@mui/material/Stack"
 
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 const PriceInput = ({ onPriceChange }) => {
   const [data, setData] = React.useState({
     price: "",
@@ -17,7 +20,7 @@ const PriceInput = ({ onPriceChange }) => {
 
   React.useEffect(() => {
     axios
-      .get("https://jumbo2-0.vercel.app/tourList/" + id)
+      .get("http://localhost:3000/tourList/" + id)
       .then((res) => {
         setData({ ...res.data, price: res.data.price })
       })
@@ -33,9 +36,19 @@ const PriceInput = ({ onPriceChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     axios
-      .put("https://jumbo2-0.vercel.app/tourList/" + id, data)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
+      .put("http://localhost:3000/tourList/" + id, data)
+      .then((res) => {
+        toast.success("Status Updated successfully!", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+        console.log(res)
+      })
+      .catch((err) => {
+        toast.error("Error updating status!", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+        console.log(err)
+      })
   }
 
   return (
@@ -82,6 +95,7 @@ const PriceInput = ({ onPriceChange }) => {
           </div>
         </div>
       </form>
+      <ToastContainer />
     </>
   )
 }

@@ -7,10 +7,18 @@
       "alt": "Shahjahan Tour",
       "link": "tours/cycle-tours/shahjahan-tour-delhi-by-cycle",
       "location": "Old Delhi",
-      "duration": "4 Hours",
+      "duration": "3.5",
       "name": "Shahjahan Tour",
-      "price": "40000",
-      "status": "Active"
+      "price": "2000",
+      "status": "Active",
+      "tags": [
+        "New delhi",
+        "old Delhi",
+        "adadacz",
+        "sdfgh"
+      ],
+      "tagline": "hello there",
+      "time": "22:16"
     },
     {
       "id": 2,
@@ -22,7 +30,13 @@
       "duration": "3",
       "name": "Galib Tour",
       "price": "950",
-      "status": "Active"
+      "status": "Active",
+      "tags": [
+        "adad",
+        "dada"
+      ],
+      "tagline": "hello there",
+      "time": "20:41"
     },
     {
       "id": 3,
@@ -31,10 +45,15 @@
       "alt": "Raj tour",
       "link": "tours/cycle-tours/raj-tour-delhi-by-cycle",
       "location": "New Delhi",
-      "duration": "4 Hours",
+      "duration": "3.9",
       "name": "Raj State",
       "price": "2000",
-      "status": "Active"
+      "status": "Active",
+      "tags": [
+        "adad",
+        "ada"
+      ],
+      "time": "18:52"
     },
     {
       "id": 4,
@@ -46,7 +65,13 @@
       "duration": "4 Hours",
       "name": "Nizamuddin Tour",
       "price": "2000",
-      "status": "Active"
+      "status": "Active",
+      "tag": [],
+      "tags": [
+        "Dwarka",
+        "mo",
+        "moradabad"
+      ]
     },
     {
       "id": 5,
@@ -58,7 +83,8 @@
       "duration": "4 Hours",
       "name": "Yamuna Tour",
       "price": "2000",
-      "status": "Active"
+      "status": "Active",
+      "tags": []
     },
     {
       "id": 6,
@@ -70,7 +96,8 @@
       "duration": "3 Hours",
       "name": "Street Food Safari",
       "price": "2500",
-      "status": "Active"
+      "status": "Active",
+      "tags": []
     },
     {
       "id": 7,
@@ -82,7 +109,8 @@
       "duration": "2.5 Hours",
       "name": "Delhi 6 Diaries",
       "price": "1500",
-      "status": "Active"
+      "status": "Active",
+      "tags": []
     },
     {
       "id": 8,
@@ -94,7 +122,8 @@
       "duration": "2 Days",
       "name": "Krishna's Trails",
       "price": "20000",
-      "status": "Active"
+      "status": "Active",
+      "tags": []
     },
     {
       "id": 9,
@@ -103,10 +132,14 @@
       "alt": "Golden Triangle By Cycle",
       "link": "tours/bicycle-touring/golden-triangle-delhi-by-cycle",
       "location": "Rajasthan",
-      "duration": "6 Days",
+      "duration": "4",
       "name": "Golden Triangle By Cycle",
       "price": "75000",
-      "status": "Active"
+      "status": "Active",
+      "tags": [
+        "adadczc"
+      ],
+      "time": "03:25"
     },
     {
       "id": 10,
@@ -115,10 +148,16 @@
       "alt": "Jim Corbett National Park",
       "link": "tours/bicycle-touring/jim-corbett-villages-delhi-by-cycle",
       "location": "Jim Corbett National Park",
-      "duration": "3 Days",
+      "duration": "3.7",
       "name": "Villages of Corbett",
       "price": "18000",
-      "status": "inActive"
+      "status": "inActive",
+      "time": "02:21",
+      "tags": [
+        "adda",
+        "adada",
+        "da"
+      ]
     },
     {
       "id": 11,
@@ -130,7 +169,8 @@
       "duration": "2.5 Hours",
       "name": "Lodhi Walk",
       "price": "1500",
-      "status": "Active"
+      "status": "Active",
+      "tag": []
     },
     {
       "id": 12,
@@ -142,7 +182,8 @@
       "duration": "2.5 Hours",
       "name": "Mehrauli Walk",
       "price": "1500",
-      "status": "Active"
+      "status": "Active",
+      "tag": []
     },
     {
       "id": 13,
@@ -154,12 +195,16 @@
       "duration": "2.5 Hours",
       "name": "Connaught Walk",
       "price": "1500",
-      "status": "Active"
+      "status": "Active",
+      "tag": []
     },
     {
-      "name": "gsgsdg",
+      "name": "asdfg",
       "id": 14,
-      "status": "Active"
+      "price": "2000",
+      "duration": "01",
+      "time": "01:55",
+      "location": "Old "
     }
   ],
   "response": [
