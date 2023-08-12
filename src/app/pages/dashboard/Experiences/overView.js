@@ -8,6 +8,7 @@ import FormControl from "@mui/material/FormControl"
 import TourTable from "./tourTable"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
+import { tourAdd } from "app/redux/actions/contactsApp"
 import axios from "axios"
 
 import { TourAddAction } from "../../../reducToolkit/editTour"
@@ -19,7 +20,7 @@ const OverView = () => {
   const [tours, setTours] = React.useState([])
 
   useEffect(() => {
-    dispatch(TourAddAction.tourAdd(false))
+    dispatch(tourAdd(false))
     axios
       .get("https://jumbo2-0.vercel.app/tourlist")
       .then((res) => setTours(res.data))
@@ -80,7 +81,7 @@ const OverView = () => {
           <Grid item xs={12} sm={12} md={3}>
             {/* <InputLabel id='demo-select-small-label'>Status</InputLabel> */}
             <span style={{ boxSizing: "border-box" }}>
-              <Select
+              {/* <Select
                 labelId='demo-select-small-label'
                 id='demo-select-small'
                 style={{ marginTop: "8px", marginBottom: "16px" }}
@@ -105,7 +106,7 @@ const OverView = () => {
                 >
                   InActive
                 </MenuItem>
-              </Select>
+              </Select> */}
             </span>
           </Grid>
           {/* </div> */}

@@ -2,7 +2,7 @@ import React from "react"
 import Styles from "./style"
 import axios from "axios"
 import { useSelector } from "react-redux"
-import { TourAddAction } from "../../../reducToolkit/editTour"
+// import { TourAddAction } from "../../../reducToolkit/editTour"
 
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux"
 import Button from "@mui/material/Button"
 import SendIcon from "@mui/icons-material/Save"
 import Stack from "@mui/material/Stack"
+import { addTour, tourAdd } from "app/redux/actions/contactsApp"
+
 
 const Title = (props) => {
   const dispatch = useDispatch()
@@ -59,7 +61,7 @@ const Title = (props) => {
         .post("https://jumbo2-0.vercel.app/tourList", values)
         .then((res) => {
           navigate("/overview")
-          dispatch(TourAddAction.addTour(false))
+          dispatch(tourAdd(false))
         })
         .catch((err) => console.log(err))
     } else {

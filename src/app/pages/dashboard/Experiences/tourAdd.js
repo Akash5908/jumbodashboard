@@ -6,12 +6,13 @@ import { useState } from "react"
 
 import { TourAddAction } from "../../../reducToolkit/editTour"
 import { useDispatch } from "react-redux"
-
+import { addTour } from "app/redux/actions/contactsApp"
+import { tourAdd } from "app/redux/actions/contactsApp"
 const TourAdd = () => {
   const dispatch = useDispatch()
   const [data, setData] = useState([])
   useEffect(() => {
-    dispatch(TourAddAction.tourAdd(true))
+    dispatch(tourAdd(true))
   }, [])
     useEffect(() => {
       axios

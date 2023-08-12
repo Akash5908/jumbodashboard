@@ -117,3 +117,9 @@ export const apiData = (data) => {
         payload: data
     }
 }
+export const tourAdd = (payload) => {
+    return {
+      type: "TOUR_ADD",
+      payload,
+    };
+  };

@@ -13,15 +13,17 @@ import Photos from "../edit/photos"
 import Price from "../edit/price"
 import Description from "../edit/description"
 import Status from "../edit/status"
-
+import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useEffect } from "react"
+import { Typography } from "@mui/material"
 
 const TabButton = () => {
   const addTour = useSelector((state) => state.addTour.addTour)
   const [value, setValue] = React.useState(0)
   const { id } = useParams()
+  // console.log(addTour)
   const tabLabels = addTour
     ? ["Title"]
     : [
@@ -53,6 +55,13 @@ const TabButton = () => {
 
   return (
     <>
+         <div style={{ marginBottom: '10vh',marginTop:"-9vh"  }}>
+      <Link to="/" style={{ textDecoration: 'none', background: '#f6f6f6', marginBottom: '8vh' }}>Home</Link> {'>'} {' '}
+        <Link to="/overview" style={{ color: 'blue' }}>
+          Experiences
+        </Link> {'>'}{' '}
+        <span>Add Experiences</span>
+      </div>
       <Box sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: "background.paper" }}>
         <Tabs
           value={value}
