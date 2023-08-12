@@ -45,7 +45,7 @@ export default function TourTable({ text, status }) {
   // console.log(status)
   useEffect(() => {
     axios
-      .get("http://localhost:3000/tourList")
+      .get("https://jumbo2-0.vercel.app/tourlist")
       .then((res) => setData(res.data))
       .catch((err) => console.log(err))
   }, [])

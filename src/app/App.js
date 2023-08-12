@@ -17,7 +17,7 @@ import Div from "@jumbo/shared/Div";
 import {CircularProgress} from "@mui/material";
 import JumboAuthProvider from "@jumbo/components/JumboAuthProvider";
 import Mydata from "./data/mydata";
-import Store1 from "./reducToolkit";
+
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
@@ -32,7 +32,7 @@ function App() {
     return (
         <QueryClientProvider client={queryClient}>
           
-            <Provider store={store} store1={Store1}>
+            <Provider store={store}>
             <Mydata/>
                 <BrowserRouter history={history}>
                     <AppProvider>
