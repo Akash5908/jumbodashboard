@@ -5,7 +5,7 @@ import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import SendIcon from "@mui/icons-material/Send"
 import Stack from "@mui/material/Stack"
-
+import { Link } from "react-router-dom"
 import Title from "../edit/title"
 import Duration from "../edit/duration"
 import Location from "../edit/location"
@@ -13,17 +13,17 @@ import Photos from "../edit/photos"
 import Price from "../edit/price"
 import Description from "../edit/description"
 import Status from "../edit/status"
-import { Link } from "react-router-dom"
+import Tags from "../edit/tags"
+import Tagline from "../edit/tagline"
+
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useEffect } from "react"
-import { Typography } from "@mui/material"
 
 const TabButton = () => {
   const addTour = useSelector((state) => state.addTour.addTour)
   const [value, setValue] = React.useState(0)
   const { id } = useParams()
-  // console.log(addTour)
   const tabLabels = addTour
     ? ["Title"]
     : [
@@ -33,12 +33,24 @@ const TabButton = () => {
         "Location",
         "Status",
         "Description",
+        "Tags",
+        "Tagline",
         "Photos",
       ]
 
   const tabComponents = addTour
     ? [Title]
-    : [Title, Price, Duration, Location, Status, Description, Photos]
+    : [
+        Title,
+        Price,
+        Duration,
+        Location,
+        Status,
+        Description,
+        Tags,
+        Tagline,
+        Photos,
+      ]
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -55,7 +67,7 @@ const TabButton = () => {
 
   return (
     <>
-         <div style={{ marginBottom: '10vh',marginTop:"-9vh"  }}>
+            <div style={{ marginBottom: '10vh',marginTop:"-9vh"  }}>
       <Link to="/" style={{ textDecoration: 'none', background: '#f6f6f6', marginBottom: '8vh' }}>Home</Link> {'>'} {' '}
         <Link to="/overview" style={{ color: 'blue' }}>
           Experiences

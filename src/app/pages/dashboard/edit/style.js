@@ -57,6 +57,7 @@ const Styles = {
     borderRadius: "11px",
     marginRight: "5px",
     border: "1px solid #ccc",
+    paddingLeft:"10px"
   },
   uploadContainer: {
     flex: "1 0 auto",
